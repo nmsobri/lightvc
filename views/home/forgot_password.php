@@ -17,7 +17,7 @@
         <?php endif; ?>
 
 
-        <?php echo $form->formStart( WWW_BASE_PATH . 'forgot_password', false ) ?>
+        <?php echo $form->formStart( APP_PATH . 'forgot_password', false ) ?>
         <ul class="form">
             <li><label>Email:</label> <?php echo $form->text( 'email' ) ?> <?php echo $form->submit( 'submit' ) ?></li>
         </ul>

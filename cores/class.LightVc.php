@@ -587,7 +587,7 @@ class Lvc_HttpRequest extends Lvc_Request
             $params[ 'uri' ] = $_SERVER[ 'REQUEST_URI' ];
 
             /* fixed subdomain wont load appropriate controller */
-            $base_dir = trim( WWW_BASE_PATH, '/' );
+            $base_dir = trim( APP_PATH, '/' );
 
             if ( $base_dir != '' ) //its mean this installation is in subfolder
             {

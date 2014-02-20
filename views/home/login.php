@@ -20,7 +20,7 @@
 
         <?php if ( !$locked ): ?>
 
-            <?php echo $form->formStart( WWW_BASE_PATH . 'login', false ) ?>
+            <?php echo $form->formStart( APP_PATH . 'login', false ) ?>
             <ul class="form">
                 <li><label>Username:</label> <?php echo $form->text( 'username' ) ?></li>
                 <li><label>Password</label> <?php echo $form->password( 'password' ) ?></li>

@@ -4,11 +4,11 @@
 
         <div id="box_login">
 
-            <?php echo $form->formStart( WWW_BASE_PATH . 'login', false ) ?>
+            <?php echo $form->formStart( APP_PATH . 'login', false ) ?>
             <?php echo $form->text( 'username' ) ?>
             <?php echo $form->password( 'password' ) ?>
             <?php echo $form->submit( 'submit', 'Sign in' ) ?>
-            <!--<input type="checkbox" name="remember"> <span style="display:block; margin-top:-15px; margin-left: 20px">Remember me . <a href="<?php echo WWW_BASE_PATH . 'forgot_password' ?>">Forgot Password</a></span>-->
+            <!--<input type="checkbox" name="remember"> <span style="display:block; margin-top:-15px; margin-left: 20px">Remember me . <a href="<?php echo APP_PATH . 'forgot_password' ?>">Forgot Password</a></span>-->
             <?php echo $form->formEnd() ?>
 
         </div>
@@ -27,7 +27,7 @@
 
             <div id="box_register_header">New to Spomi? Sign up</div>
 
-            <?php echo $form->formStart( WWW_BASE_PATH . 'register', false ) ?>
+            <?php echo $form->formStart( APP_PATH . 'register', false ) ?>
             <?php echo $form->text( 'username' ) ?>
             <?php echo $form->password( 'password' ) ?>
             <?php echo $form->password( 'repeat_password' ) ?>

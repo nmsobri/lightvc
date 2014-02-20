@@ -17,11 +17,11 @@
         <?php endif; ?>
 
 
-        <?php echo $form->formStart( WWW_BASE_PATH . 'activation', false ) ?>
+        <?php echo $form->formStart( APP_PATH . 'activation', false ) ?>
         <ul class="form">
             <li><label>Email:</label> <?php echo $form->text( 'email' ) ?></li>
             <li><label>Activation code:</label> <?php echo $form->text( 'activation_code' ) ?></li>
-            <li><label>&nbsp;</label> <?php echo $form->submit( 'submit' ) ?><a href="<?php echo WWW_BASE_PATH . 'send_activation' ?>">Resend activation</a></li>
+            <li><label>&nbsp;</label> <?php echo $form->submit( 'submit' ) ?><a href="<?php echo APP_PATH . 'send_activation' ?>">Resend activation</a></li>
         </ul>
         <?php echo $form->formEnd() ?>
 

@@ -5,13 +5,13 @@
 
         <?php if ( isset( $requiredCss ) ): ?>
             <?php foreach ( $requiredCss as $css ): ?>
-                <?php echo '<link rel="stylesheet" href="' . WWW_CSS_PATH . $css . '" type="text/css" media="all" charset="utf-8" />' . "\n"; ?>
+                <?php echo '<link rel="stylesheet" href="' . CSS_PATH . $css . '" type="text/css" media="all" charset="utf-8" />' . "\n"; ?>
             <?php endforeach; ?>
         <?php endif; ?>
 
         <?php if ( isset( $requiredJsInHead ) ): ?>
             <?php foreach ( $requiredJsInHead as $js ): ?>
-                <?php echo '<script type="text/javascript" charset="utf-8" src="' . WWW_JS_PATH . $js . '"></script>' . "\n"; ?>
+                <?php echo '<script type="text/javascript" charset="utf-8" src="' . JS_PATH . $js . '"></script>' . "\n"; ?>
             <?php endforeach; ?>
         <?php endif; ?>
 
@@ -108,16 +108,16 @@
 
                 <!--TOP LINK-->
                 <div id="navigation">
-                    <a href="<?php echo WWW_BASE_PATH; ?>" id="home"><span>Home</span></a>
+                    <a href="<?php echo APP_PATH; ?>" id="home"><span>Home</span></a>
                     <a href="#post_box" id="what_now"> What Happening ? Post Now!</a> |
-                    <a href="<?php echo WWW_BASE_PATH . 'user/draw' ?>">Draw</a> |
+                    <a href="<?php echo APP_PATH . 'user/draw' ?>">Draw</a> |
                     <a href="#snapshot_box" id="snapshot">Snapshot</a>
                     <input type="text" name="header_search" placeholder="search" style="padding: 0 4px; margin-left: 6px">
 
-                    <a href="<?php echo WWW_BASE_PATH . 'user/edit_profile' ?>">Edit Profile</a> |
-                    <a href="<?php echo WWW_BASE_PATH . 'user/privacy_setting' ?>">Privacy setting</a> |
-                    <a href="<?php echo WWW_BASE_PATH . 'user/invite_friend' ?>">Invite Friend</a> |
-                    <a href="<?php echo WWW_BASE_PATH . 'user/logout' ?>">Logout</a>
+                    <a href="<?php echo APP_PATH . 'user/edit_profile' ?>">Edit Profile</a> |
+                    <a href="<?php echo APP_PATH . 'user/privacy_setting' ?>">Privacy setting</a> |
+                    <a href="<?php echo APP_PATH . 'user/invite_friend' ?>">Invite Friend</a> |
+                    <a href="<?php echo APP_PATH . 'user/logout' ?>">Logout</a>
                 </div>
 
 
@@ -127,7 +127,7 @@
                     <div class="module" id="avatar">
 
                         <?php if ( $profile[ 0 ][ 'image' ] == USER_DEFAULT_IMAGE ): ?>
-                        <img src="<?php echo WWW_IMAGE_PATH. USER_DEFAULT_IMAGE ?>" id="profile_image">
+                        <img src="<?php echo IMG_PATH. USER_DEFAULT_IMAGE ?>" id="profile_image">
                         <?php else: ?>
                             <a href="<?php echo USER_IMAGE_PATH . $profile[ 0 ][ 'username' ] . '/' . $profile[ 0 ][ 'image' ]; ?>" id="profile_avatar"><img src="<?php echo USER_IMAGE_PATH . $profile[ 0 ][ 'username' ] . '/' . USER_THUMB_PREFIX . $profile[ 0 ][ 'image' ]; ?>" id="profile_image"></a>
                         <?php endif; ?>
@@ -158,10 +158,10 @@
                         <div class="module">
 
                             <ul>
-                                <li class="active"><a href="<?php echo WWW_BASE_PATH . 'user' ?>" class="list-link">Home<i class="chev-right"></i></a></li>
-                                <li class=""><a href="<?php echo WWW_BASE_PATH . $profile[ 0 ][ 'username' ] ?>" class="list-link">Your Profile<i class="chev-right"></i></a></li>
-                                <li class=""><a href="<?php echo WWW_BASE_PATH . 'user/inbox' ?>" class="list-link">Inbox<i class="chev-right"></i></a></li>
-                                <li class=""><a href="<?php echo WWW_BASE_PATH . 'user/outbox' ?>" class="list-link">Outbox<i class="chev-right"></i></a></li>
+                                <li class="active"><a href="<?php echo APP_PATH . 'user' ?>" class="list-link">Home<i class="chev-right"></i></a></li>
+                                <li class=""><a href="<?php echo APP_PATH . $profile[ 0 ][ 'username' ] ?>" class="list-link">Your Profile<i class="chev-right"></i></a></li>
+                                <li class=""><a href="<?php echo APP_PATH . 'user/inbox' ?>" class="list-link">Inbox<i class="chev-right"></i></a></li>
+                                <li class=""><a href="<?php echo APP_PATH . 'user/outbox' ?>" class="list-link">Outbox<i class="chev-right"></i></a></li>
                                 <li class=""><a href="" class="list-link">Trending Users<i class="chev-right"></i></a></li>
                                 <li class=""><a href="" class="list-link">Top 100 Followers<i class="chev-right"></i></a></li>
                                 <li class=""><a href="" class="list-link">What's Trending<i class="chev-right"></i></a></li>
@@ -260,7 +260,7 @@
 
         <?php if ( isset( $requiredJs ) ): ?>
             <?php foreach ( $requiredJs as $js ): ?>
-                <?php echo '<script type="text/javascript" charset="utf-8" src="' . WWW_JS_PATH . $js . '"></script>' . "\n"; ?>
+                <?php echo '<script type="text/javascript" charset="utf-8" src="' . JS_PATH . $js . '"></script>' . "\n"; ?>
             <?php endforeach; ?>
         <?php endif; ?>
 

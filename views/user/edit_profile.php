@@ -136,7 +136,7 @@
         <?php endif; ?>
 
 
-        <?php echo $form->formStart( WWW_BASE_PATH . 'user/edit_profile/user_data', false ) ?>
+        <?php echo $form->formStart( APP_PATH . 'user/edit_profile/user_data', false ) ?>
         <ul class="form">
             <li><label>Username:</label> <?php echo $form->text( 'username', $user_data[ 0 ][ 'username' ], array( 'disabled' => true ) ) ?></li>
             <li><label>Full Name:</label> <?php echo $form->text( 'full_name', $user_data[ 0 ][ 'full_name' ] ) ?></li>
@@ -151,7 +151,7 @@
         <hr>
 
         <?php echo $form->formEnd() ?>
-        <?php echo $form->formStart( WWW_BASE_PATH . 'user/edit_profile/user_image', true ) ?>
+        <?php echo $form->formStart( APP_PATH . 'user/edit_profile/user_image', true ) ?>
         <ul class="form">
             <li><label>Image:</label> <?php echo $form->file( 'user_image' ) ?></li>
             <li><label>&nbsp;</label> <?php echo $form->submit( 'user_image_submit', 'Upload' ) ?></li>
@@ -164,7 +164,7 @@
 
 
         <?php echo $form->formEnd() ?>
-        <?php echo $form->formStart( WWW_BASE_PATH . 'user/edit_profile/user_thumb', true ) ?>
+        <?php echo $form->formStart( APP_PATH . 'user/edit_profile/user_thumb', true ) ?>
         <?php echo $form->hidden( 'x', 0 ) ?>
         <?php echo $form->hidden( 'y', 0 ) ?>
         <?php echo $form->hidden( 'w', 0 ) ?>

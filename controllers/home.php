@@ -65,7 +65,7 @@ class HomeController extends AppController
 
                 if ( $validator->isValid() )
                 {
-                    include APP_PATH . 'classes/class.Utility.php';
+                    include BASE_PATH . 'classes/class.Utility.php';
                     $auth = new Authentication( $session, $cookie );
 
                     $params = new stdClass();
@@ -81,13 +81,13 @@ class HomeController extends AppController
 
                         if ( !is_null( $login_data[ 'activation_key' ] ) )
                         {
-                            $validator->invalidateValidation( 'You need to activate your account before login <a href=' . WWW_BASE_PATH . 'activation' . '>Activate account</a>' );
+                            $validator->invalidateValidation( 'You need to activate your account before login <a href=' . APP_PATH . 'activation' . '>Activate account</a>' );
                         }
                         else
                         {
                             /* Save user data to session */
                             $session->set( 'user', array( 'id'       => $login_data[ 'id' ], 'username' => $login_data[ 'username' ] ) );
-                            $this->redirect( WWW_BASE_PATH . 'user' ); //redirect to user page
+                            $this->redirect( APP_PATH . 'user' ); //redirect to user page
                         }
                     }
                     else
@@ -155,7 +155,7 @@ class HomeController extends AppController
                 }
                 else
                 {
-                    include APP_PATH . 'classes/class.Utility.php';
+                    include BASE_PATH . 'classes/class.Utility.php';
                     $activation_key = Utility::getActivationKey( $_POST[ 'email' ] );
 
                     $password = Utility::hashedPassword( SALT, $_POST[ 'password' ] );
@@ -176,7 +176,7 @@ class HomeController extends AppController
                     $mail->send();
 
                     $session->flash( 'success_msg', 'Successfully registered new account.Please check your email on how to activate your account' );
-                    $session->redirect( WWW_BASE_PATH . 'register' );
+                    $session->redirect( APP_PATH . 'register' );
                 }
             }
         }
@@ -223,7 +223,7 @@ class HomeController extends AppController
                         {
                             $db->query( "UPDATE account_activations SET activation_key = NULL where user_id =?", array( $user_info[ 0 ][ 'user_id' ] ) )->execute();
                             $session->flash( 'success_msg', 'Successfully activate your account' );
-                            $this->redirect( WWW_BASE_PATH . 'activation' );
+                            $this->redirect( APP_PATH . 'activation' );
                         }
                     }
                     else
@@ -281,7 +281,7 @@ class HomeController extends AppController
                         $mail->send();
 
                         $session->flash( 'success_msg', 'Successfully send activation key' );
-                        $this->redirect( WWW_BASE_PATH . 'send_activation' );
+                        $this->redirect( APP_PATH . 'send_activation' );
                     }
                     else
                     {
@@ -337,7 +337,7 @@ class HomeController extends AppController
 
                     $db->query( "UPDATE users SET password =? where id =?", array( Utility::hashedPassword( SALT, $password ), $user_info[ 0 ][ 'user_id' ] ) )->execute(); //update password in db
                     $session->flash( 'success_msg', 'Successfully resetting your password, kindly check your email for your new password' );
-                    $this->redirect( WWW_BASE_PATH . 'forgot_password' );
+                    $this->redirect( APP_PATH . 'forgot_password' );
                 }
                 else
                 {

@@ -15,7 +15,7 @@
 <?php endif; ?>
 
 
-<?php echo $form->formStart( WWW_BASE_PATH . 'user/privacy_setting', false ) ?>
+<?php echo $form->formStart( APP_PATH . 'user/privacy_setting', false ) ?>
 <ul class="form">
     <li><label>View Biography:</label> <?php echo $form->select( 'view_biography', array( ''=> 'Please Select', 'public'    => 'Public', 'protected' => 'Follower Only', 'private'   => 'Just me' ), $user_setting[ 'view_biography' ] ) ?></li>
     <li><label>View Image:</label> <?php echo $form->select( 'view_image', array( ''=> 'Please Select', 'public'    => 'Public', 'protected' => 'Follower Only', 'private'   => 'Just me' ), $user_setting[ 'view_image' ] ) ?></li>

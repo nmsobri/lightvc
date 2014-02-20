@@ -13,7 +13,7 @@
 
 
 <div id="post_what">
-    <?php echo $form->formStart( WWW_BASE_PATH . 'user', false ); ?>
+    <?php echo $form->formStart( APP_PATH . 'user', false ); ?>
     <?php echo $form->text( 'what_message' ); ?>
     <?php echo $form->submit( 'submit_what_message', 'submit' ); ?>
     <div id="what_message_wrapper"><span id="what_message_counter" style="z-index: 99"></span> character left</div>

@@ -24,7 +24,7 @@ class UserController extends AppController
         $auth = new Authentication($session, $this->registry->get('cookie'));
         if (!$auth->isAuth()) {
             $session->flash('error_msg', 'Please login first');
-            $this->redirect(WWW_BASE_PATH . 'login');
+            $this->redirect(APP_PATH . 'login');
         }
     }
 
@@ -45,7 +45,7 @@ class UserController extends AppController
                 $validator->addValidator('status', new RegexValidator('status', $_POST['what_message'], '#^([^^])+$#', array('field' => 'message')));
 
                 if ($validator->isValid()) {
-                    include APP_PATH . 'classes/class.Utility.php';
+                    include BASE_PATH . 'classes/class.Utility.php';
                     $db = new Database(DB_DSN, DB_USER, DB_PASS);
                     $hash_tags = Utility::getHash($_POST['status']);
 
@@ -64,7 +64,7 @@ class UserController extends AppController
                     }
 
                     $session->flash('success_msg', 'Successfully create new status');
-                    $this->redirect(WWW_BASE_PATH . 'user');
+                    $this->redirect(APP_PATH . 'user');
                 }
             }
 
@@ -73,7 +73,7 @@ class UserController extends AppController
             $this->setVar('session', $session);
             $this->setVar('validator', $validator);
         } else {
-            include APP_PATH . 'classes/class.Utility.php';
+            include BASE_PATH . 'classes/class.Utility.php';
             $db = new Database(DB_DSN, DB_USER, DB_PASS);
 
             if ($type == 'status') {
@@ -170,7 +170,7 @@ class UserController extends AppController
                     $is_email_exist = $db->query("SELECT * FROM profiles WHERE email =? AND user_id !=?", array($_POST['email'], $user_data['id']))->totalrow()->execute();
 
                     if (!$is_email_exist > 0) {
-                        include APP_PATH . 'classes/class.Utility.php';
+                        include BASE_PATH . 'classes/class.Utility.php';
                         $dob = new DateTime($year_of_birth[$_POST['year_of_birth']] . '-' . $_POST['month_of_birth'] . '-' . $_POST['day_of_birth']);
                         $password = Utility::hashedPassword(SALT, $_POST['password']);
 
@@ -183,7 +183,7 @@ class UserController extends AppController
                         }
 
                         $session->flash('success_msg', 'Successfully update profile');
-                        $this->redirect(WWW_BASE_PATH . 'user/edit_profile');
+                        $this->redirect(APP_PATH . 'user/edit_profile');
                     } else {
                         $validator->invalidateValidation('That email belong to someone else');
                     }
@@ -223,7 +223,7 @@ class UserController extends AppController
 
             $this->disableDefaultView();
         } else {
-            include APP_PATH . 'classes/class.Utility.php';
+            include BASE_PATH . 'classes/class.Utility.php';
             $thumb_name = USER_THUMB_PREFIX . $session->get('image_name');
             $source = $user_img_dir . $session->get('image_name');
             $destination = $user_img_dir . $thumb_name;
@@ -301,7 +301,7 @@ class UserController extends AppController
                     )->where("user_id=?", array($session_data['id']))->execute();
 
                 $session->flash('success_msg', 'Successfully update privacy setting');
-                $this->redirect(WWW_BASE_PATH . 'user/privacy_setting');
+                $this->redirect(APP_PATH . 'user/privacy_setting');
             }
         }
 
@@ -427,7 +427,7 @@ class UserController extends AppController
         $auth = new Authentication($session, $cookie);
 
         if ($auth->logout()) {
-            $this->redirect(WWW_BASE_PATH);
+            $this->redirect(APP_PATH);
         }
         $this->disableDefaultView();
     }

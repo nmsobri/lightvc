@@ -57,7 +57,7 @@ class AppController extends Lvc_PageController
 
     public function redirectToAction( $actionName )
     {
-        $this->redirect( WWW_BASE_PATH . $this->getControllerPath() . '/' . $actionName );
+        $this->redirect( APP_PATH . $this->getControllerPath() . '/' . $actionName );
     }
 
 

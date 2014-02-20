@@ -18,7 +18,7 @@
         <?php endif; ?>
 
 
-        <?php echo $form->formStart( WWW_BASE_PATH . 'send_activation', false ) ?>
+        <?php echo $form->formStart( APP_PATH . 'send_activation', false ) ?>
         <ul class="form">
             <li><label>Email:</label> <?php echo $form->text( 'email' ) ?> <?php echo $form->submit( 'submit' ) ?></li>
         </ul>

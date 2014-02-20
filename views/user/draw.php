@@ -103,7 +103,7 @@
         <a id="expand" href="" style="display: block; float: right">Expand Drawing Board</a>
         <span id="save_status" style="display: block; clear: right;float: right"></span>
 
-        <?php echo $form->formStart( WWW_BASE_PATH . 'user/draw', false ) ?>
+        <?php echo $form->formStart( APP_PATH . 'user/draw', false ) ?>
         <ul class="form">
             <li><?php echo $form->text( 'answer' ) ?></li>
             <li><?php echo $form->textarea( 'description' ) ?><span><!--character counter by jvascript--></span> character left</li>

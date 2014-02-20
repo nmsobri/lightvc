@@ -75,7 +75,7 @@
         <?php endif; ?>
 
 
-        <?php echo $form->formStart( WWW_BASE_PATH . 'register', false ) ?>
+        <?php echo $form->formStart( APP_PATH . 'register', false ) ?>
         <ul class="form">
             <li><label>Username:</label> <?php echo $form->text( 'username' ) ?></li>
             <li><label>Password:</label> <?php echo $form->password( 'password' ) ?></li>
