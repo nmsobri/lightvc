@@ -41,20 +41,19 @@
  * @author Anthony Bush
  * @since 2007-04-20
  * */
-class Lvc_Config
+class LvcConfig
 {
 
-    protected static $controllerPaths = array( );
+    protected static $controllerPaths = array();
     protected static $controllerSuffix = '.php'; // e.g. _controller.php
-    protected static $controllerViewPaths = array( );
+    protected static $controllerViewPaths = array();
     protected static $controllerViewSuffix = '.php'; // e.g. .tpl.php
-    protected static $layoutViewPaths = array( );
+    protected static $layoutViewPaths = array();
     protected static $layoutViewSuffix = '.php'; // e.g. .tpl.php
-    protected static $elementViewPaths = array( );
+    protected static $elementViewPaths = array();
     protected static $elementViewSuffix = '.php'; // e.g. .tpl.php
     protected static $viewClassName = 'Lvc_View'; // e.g. AppView
     protected static $layoutContentVarName = 'layoutContent'; // e.g. content_for_layout
-
 
 
     /**
@@ -71,14 +70,12 @@ class Lvc_Config
     /* These may be moved into some sort of routing thing later. For now: */
 
 
-
     /**
      * The controller name to use if no controller name can be gathered from the request.
      *
      * @var string
      * */
     protected static $defaultControllerName = 'page';
-
 
 
     /**
@@ -89,14 +86,12 @@ class Lvc_Config
     protected static $defaultControllerActionName = 'view';
 
 
-
     /**
      * The action params to use when calling defaultControllerActionName if no controller name can be gathered from the request.
      *
      * @var string
      * */
     protected static $defaultControllerActionParams = array( 'page_name' => 'home' );
-
 
 
     /**
@@ -108,14 +103,12 @@ class Lvc_Config
     protected static $defaultActionName = 'index';
 
 
-
     /* Configuration Methods */
 
     public static function addControllerPath( $path )
     {
-        self::$controllerPaths[ ] = $path;
+        self::$controllerPaths[] = $path;
     }
-
 
 
     public static function setControllerSuffix( $suffix )
@@ -124,12 +117,10 @@ class Lvc_Config
     }
 
 
-
     public static function addControllerViewPath( $path )
     {
-        self::$controllerViewPaths[ ] = $path;
+        self::$controllerViewPaths[] = $path;
     }
-
 
 
     public static function setControllerViewSuffix( $suffix )
@@ -138,12 +129,10 @@ class Lvc_Config
     }
 
 
-
     public static function addLayoutViewPath( $path )
     {
-        self::$layoutViewPaths[ ] = $path;
+        self::$layoutViewPaths[] = $path;
     }
-
 
 
     public static function setLayoutViewSuffix( $suffix )
@@ -152,12 +141,10 @@ class Lvc_Config
     }
 
 
-
     public static function addElementViewPath( $path )
     {
-        self::$elementViewPaths[ ] = $path;
+        self::$elementViewPaths[] = $path;
     }
-
 
 
     public static function setElementViewSuffix( $suffix )
@@ -166,12 +153,10 @@ class Lvc_Config
     }
 
 
-
     public static function setViewClassName( $className )
     {
         self::$viewClassName = $className;
     }
-
 
 
     public static function setLayoutContentVarName( $varName )
@@ -180,12 +165,10 @@ class Lvc_Config
     }
 
 
-
     public static function getLayoutContentVarName()
     {
         return self::$layoutContentVarName;
     }
-
 
 
     public static function setSendActionParamsAsArray( $bool )
@@ -194,12 +177,10 @@ class Lvc_Config
     }
 
 
-
     public static function getSendActionParamsAsArray()
     {
         return self::$sendActionParamsAsArray;
     }
-
 
 
     public static function setDefaultControllerName( $defaultControllerName )
@@ -208,12 +189,10 @@ class Lvc_Config
     }
 
 
-
     public static function setDefaultControllerActionName( $defaultControllerActionName )
     {
         self::$defaultControllerActionName = $defaultControllerActionName;
     }
-
 
 
     public static function setDefaultControllerActionParams( $defaultControllerActionParams )
@@ -222,12 +201,10 @@ class Lvc_Config
     }
 
 
-
     public static function setDefaultActionName( $defaultActionName )
     {
         self::$defaultActionName = $defaultActionName;
     }
-
 
 
     public static function getDefaultControllerName()
@@ -236,12 +213,10 @@ class Lvc_Config
     }
 
 
-
     public static function getDefaultControllerActionName()
     {
         return self::$defaultControllerActionName;
     }
-
 
 
     public static function getDefaultControllerActionParams()
@@ -250,12 +225,10 @@ class Lvc_Config
     }
 
 
-
     public static function getDefaultActionName()
     {
         return self::$defaultActionName;
     }
-
 
 
     public static function getcontrollerPaths()
@@ -264,12 +237,10 @@ class Lvc_Config
     }
 
 
-
     public static function getcontrollerViewPaths()
     {
         return self::$controllerViewPaths;
     }
-
 
 
     public static function getlayoutViewPaths()
@@ -278,12 +249,10 @@ class Lvc_Config
     }
 
 
-
     public static function getelementViewPaths()
     {
         return self::$elementViewPaths;
     }
-
 
 
     public static function getcontrollerSuffix()
@@ -292,12 +261,10 @@ class Lvc_Config
     }
 
 
-
     public static function getcontrollerViewSuffix()
     {
         return self::$controllerViewSuffix;
     }
-
 
 
     public static function getlayoutViewSuffix()
@@ -306,25 +273,23 @@ class Lvc_Config
     }
 
 
-
     public static function getelementViewSuffix()
     {
         return self::$elementViewSuffix;
     }
 
 
-
     /* Retrieval Methods */
 
     public static function getController( $controllerName, $controllerSubPath = "" )
     {
-        foreach ( self::$controllerPaths as $path )
+        foreach( self::$controllerPaths as $path )
         {
             $file = $path . $controllerSubPath . $controllerName . self::$controllerSuffix;
 
-            if ( file_exists( $file ) )
+            if( file_exists( $file ) )
             {
-                include_once($file);
+                include_once( $file );
                 $controllerClass = self::getControllerClassName( $controllerName );
                 $controller = new $controllerClass();
                 $controller->setControllerName( $controllerName ); //setControllerName is a methdd from PageController class
@@ -336,12 +301,10 @@ class Lvc_Config
     }
 
 
-
     public static function getControllerClassName( $controllerName )
     {
         return str_replace( ' ', '', ucwords( str_replace( array( '_', '/' ), ' ', $controllerName ) ) ) . 'Controller';
     }
-
 
 
     public static function getActionFunctionName( $actionName )
@@ -350,26 +313,22 @@ class Lvc_Config
     }
 
 
-
-    public static function getControllerView( $viewName, &$data = array( ) )
+    public static function getControllerView( $viewName, &$data = array() )
     {
         return self::getView( $viewName, $data, self::$controllerViewPaths, self::$controllerViewSuffix );
     }
 
 
-
-    public static function getElementView( $elementName, &$data = array( ) )
+    public static function getElementView( $elementName, &$data = array() )
     {
         return self::getView( $elementName, $data, self::$elementViewPaths, self::$elementViewSuffix );
     }
 
 
-
-    public static function getLayoutView( $layoutName, &$data = array( ) )
+    public static function getLayoutView( $layoutName, &$data = array() )
     {
         return self::getView( $layoutName, $data, self::$layoutViewPaths, self::$layoutViewSuffix );
     }
-
 
 
     /**
@@ -387,19 +346,18 @@ class Lvc_Config
      * @var mixed Lvc_View object if one is found, otherwise null.
      * @see getControllerView(), getElementView(), getLayoutView(), Lvc_Config::setViewClassName()
      * */
-    public static function getView( $viewName, &$data = array( ), &$paths = array( '' ), $suffix = '' )
+    public static function getView( $viewName, &$data = array(), &$paths = array( '' ), $suffix = '' )
     {
-        foreach ( $paths as $path )
+        foreach( $paths as $path )
         {
             $file = $path . $viewName . $suffix;
-            if ( file_exists( $file ) )
+            if( file_exists( $file ) )
             {
                 return new self::$viewClassName( $file, $data );
             }
         }
         return null;
     }
-
 
 
     /**
@@ -430,10 +388,7 @@ class Lvc_Config
     }
 
 
-
 }
-
-
 
 
 /**
@@ -444,16 +399,15 @@ class Lvc_Config
  * @author Anthony Bush
  * @since 2007-04-20
  * */
-class Lvc_Request
+class LvcRequest
 {
 
     protected $controller = null;
     protected $controllerName = '';
     protected $controllerSubPath = '';
-    protected $controllerParams = array( );
+    protected $controllerParams = array();
     protected $actionName = '';
-    protected $actionParams = array( );
-
+    protected $actionParams = array();
 
 
     public function getController()
@@ -462,12 +416,10 @@ class Lvc_Request
     }
 
 
-
     public function getControllerName()
     {
         return $this->controllerName;
     }
-
 
 
     public function getControllerSubPath()
@@ -476,12 +428,10 @@ class Lvc_Request
     }
 
 
-
     public function &getControllerParams()
     {
         return $this->controllerParams;
     }
-
 
 
     public function getActionName()
@@ -490,12 +440,10 @@ class Lvc_Request
     }
 
 
-
     public function &getActionParams()
     {
         return $this->actionParams;
     }
-
 
 
     public function setController( $controller )
@@ -504,12 +452,10 @@ class Lvc_Request
     }
 
 
-
     public function setControllerName( $controllerName )
     {
         $this->controllerName = trim( $controllerName );
     }
-
 
 
     public function setControllerSubPath( $controllerSubPath )
@@ -518,12 +464,10 @@ class Lvc_Request
     }
 
 
-
     public function setControllerParams( &$controllerParams )
     {
         $this->controllerParams = $controllerParams;
     }
-
 
 
     public function setActionName( $actionName )
@@ -532,12 +476,10 @@ class Lvc_Request
     }
 
 
-
     public function setActionParams( $actionParams )
     {
         $this->actionParams = $actionParams;
     }
-
 
 
     /**
@@ -555,10 +497,7 @@ class Lvc_Request
     }
 
 
-
 }
-
-
 
 
 /**
@@ -569,55 +508,53 @@ class Lvc_Request
  * @author Anthony Bush
  * @since 2007-04-20
  * */
-class Lvc_HttpRequest extends Lvc_Request
+class LvcHttpRequest extends LvcRequest
 {
 
-    protected $params = array( );
-
+    protected $params = array();
 
 
     public function __construct()
     {
-        $params = array( );
+        $params = array();
 
         /* Ensure that we have a REQUEST_URI. */
-        if ( isset( $_SERVER[ 'REQUEST_URI' ] ) )
+        if( isset( $_SERVER['REQUEST_URI'] ) )
         {
-
-            $params[ 'uri' ] = $_SERVER[ 'REQUEST_URI' ];
+            $params['uri'] = $_SERVER['REQUEST_URI'];
 
             /* fixed subdomain wont load appropriate controller */
             $base_dir = trim( APP_PATH, '/' );
 
-            if ( $base_dir != '' ) //its mean this installation is in subfolder
+            if( $base_dir != '' ) //its mean this installation is in subfolder
             {
-                $uri = preg_replace( "#/$base_dir(/.+)#", '\1', $params[ 'uri' ] );
+                $uri = preg_replace( "#/$base_dir(/.+)#", '\1', $params['uri'] );
 
-                if ( trim( $uri, '/' ) == $base_dir )
+                if( trim( $uri, '/' ) == $base_dir )
                 {
-                    $params[ 'uri' ] = '';
+                    $params['uri'] = '';
                 }
                 else
                 {
-                    $params[ 'uri' ] = trim( $uri, '/' );
+                    $params['uri'] = trim( $uri, '/' );
                 }
             }
             else
             {
-                $params[ 'uri' ] = trim( $params[ 'uri' ], '/' );
+                $params['uri'] = trim( $params['uri'], '/' );
             }
         }
         else
         {
-            $params[ 'uri' ] = '';
+            $params['uri'] = '';
         }
 
 
         /* Save GET data */
-        $params[ 'get' ] = & $_GET;
+        $params['get'] = & $_GET;
 
         /* Save POST data */
-        $params[ 'post' ] = & $_POST;
+        $params['post'] = & $_POST;
 
         /* Set params that will be used by routers. */
         $this->setRequestParams( $params );
@@ -627,19 +564,16 @@ class Lvc_HttpRequest extends Lvc_Request
     }
 
 
-
     public function &getParams()
     {
         return $this->params;
     }
 
 
-
     public function setRequestParams( &$params )
     {
         $this->params = $params;
     }
-
 
 
     /**
@@ -651,9 +585,9 @@ class Lvc_HttpRequest extends Lvc_Request
      * */
     public function getAdditionalErrorInfo()
     {
-        if ( isset( $_SERVER[ 'REQUEST_URI' ] ) )
+        if( isset( $_SERVER['REQUEST_URI'] ) )
         {
-            return nl2br( "\nRequest Url was {$_SERVER[ 'REQUEST_URI' ]}" );
+            return nl2br( "\nRequest Url was {$_SERVER['REQUEST_URI']}" );
         }
         else
         {
@@ -662,10 +596,7 @@ class Lvc_HttpRequest extends Lvc_Request
     }
 
 
-
 }
-
-
 
 
 /**
@@ -676,7 +607,7 @@ class Lvc_HttpRequest extends Lvc_Request
  * @author Anthony Bush
  * @since 2007-04-22
  * */
-interface Lvc_RouterInterface
+interface LvcRouter
 {
 
     /**
@@ -693,8 +624,6 @@ interface Lvc_RouterInterface
 }
 
 
-
-
 /**
  * Routes a request using only GET data.
  *
@@ -705,12 +634,11 @@ interface Lvc_RouterInterface
  * @author Anthony Bush
  * @since 2007-04-22
  * */
-class Lvc_GetRouter implements Lvc_RouterInterface
+class LvcGetRouter implements LvcRouter
 {
 
     protected $controllerKey = 'controller';
     protected $actionKey = 'action';
-
 
 
     public function setControllerKey( $controllerKey )
@@ -719,12 +647,10 @@ class Lvc_GetRouter implements Lvc_RouterInterface
     }
 
 
-
     public function setActionKey( $actionKey )
     {
         $this->actionKey = $actionKey;
     }
-
 
 
     /**
@@ -741,11 +667,10 @@ class Lvc_GetRouter implements Lvc_RouterInterface
     }
 
 
-
     /**
      * Attempts to routes a request using only the GET data.
      *
-     * @param Lvc_HttpRequest $request A request object to route.
+     * @param LvcHttpRequest $request A request object to route.
      * @return boolean
      * @author Anthony Bush
      * @since 2007-04-22
@@ -755,32 +680,32 @@ class Lvc_GetRouter implements Lvc_RouterInterface
         $params = $request->getParams();
 
         /* Use GET parameters to set controller, action, and action params */
-        if ( isset( $params[ 'get' ][ $this->controllerKey ] ) )
+        if( isset( $params['get'][$this->controllerKey] ) )
         {
 
-            $request->setControllerName( $params[ 'get' ][ $this->controllerKey ] );
+            $request->setControllerName( $params['get'][$this->controllerKey] );
 
-            if ( isset( $params[ 'get' ][ $this->actionKey ] ) )
+            if( isset( $params['get'][$this->actionKey] ) )
             {
-                $request->setActionName( $params[ 'get' ][ $this->actionKey ] );
+                $request->setActionName( $params['get'][$this->actionKey] );
             }
             else
             {
-                $request->setActionName( Lvc_Config::getDefaultActionName() );
+                $request->setActionName( LvcConfig::getDefaultActionName() );
             }
 
 
-            $parts = explode( '&', ltrim( $params[ 'uri' ], '?' ) );
+            $parts = explode( '&', ltrim( $params['uri'], '?' ) );
 
-            $actionParams = array( );
+            $actionParams = array();
 
-            foreach ( $parts as $part )
+            foreach( $parts as $part )
             {
-                list($seg_key, $seg_val) = explode( '=', $part );
+                list( $seg_key, $seg_val ) = explode( '=', $part );
 
-                if ( $seg_key != $this->controllerKey && $seg_key != $this->actionKey )
+                if( $seg_key != $this->controllerKey && $seg_key != $this->actionKey )
                 {
-                    $actionParams[ $seg_key ] = $seg_val;
+                    $actionParams[$seg_key] = $seg_val;
                 }
             }
 
@@ -795,10 +720,7 @@ class Lvc_GetRouter implements Lvc_RouterInterface
     }
 
 
-
 }
-
-
 
 
 /**
@@ -814,7 +736,7 @@ class Lvc_GetRouter implements Lvc_RouterInterface
  * @author Anthony Bush
  * @since 2007-04-22
  * */
-class Lvc_RewriteRouter implements Lvc_RouterInterface
+class LvcRewriteRouter implements LvcRouter
 {
 
     /**
@@ -823,7 +745,7 @@ class Lvc_RewriteRouter implements Lvc_RouterInterface
      * used as parameters for the action (using numeric indexes). Any extra GET
      * data is also amended to the action parameters.
      *
-     * @param Lvc_HttpRequest $request A request object to route.
+     * @param LvcHttpRequest $request A request object to route.
      * @return boolean
      * @author Anthony Bush
      * @since 2007-04-22
@@ -832,28 +754,28 @@ class Lvc_RewriteRouter implements Lvc_RouterInterface
     {
         $params = $request->getParams();
 
-        if ( isset( $params[ 'uri' ] ) )
+        if( isset( $params['uri'] ) )
         {
 
-            $url = explode( '/', $params[ 'uri' ] );
+            $url = explode( '/', $params['uri'] );
             $count = count( $url );
 
             /* Set controller, action, and some action params from the segmented URL. */
-            if ( $count > 0 )
+            if( $count > 0 )
             {
-                $request->setControllerName( $url[ 0 ] );
+                $request->setControllerName( $url[0] );
 
-                $actionParams = array( );
-                if ( $count > 1 )
+                $actionParams = array();
+                if( $count > 1 )
                 {
-                    $request->setActionName( $url[ 1 ] );
-                    if ( $count > 2 )
+                    $request->setActionName( $url[1] );
+                    if( $count > 2 )
                     {
-                        for ( $i = 2; $i < $count; $i++ )
+                        for( $i = 2; $i < $count; $i++ )
                         {
-                            if ( !empty( $url[ $i ] ) )
+                            if( !empty( $url[$i] ) )
                             {
-                                $actionParams[ ] = $url[ $i ];
+                                $actionParams[] = $url[$i];
                             }
                         }
                     }
@@ -867,10 +789,7 @@ class Lvc_RewriteRouter implements Lvc_RouterInterface
     }
 
 
-
 }
-
-
 
 
 /**
@@ -883,11 +802,10 @@ class Lvc_RewriteRouter implements Lvc_RouterInterface
  * @author Anthony Bush
  * @since 2007-05-08
  * */
-class Lvc_RegexRewriteRouter implements Lvc_RouterInterface
+class LvcRegexRewriteRouter implements LvcRouter
 {
 
-    protected $routes = array( );
-
+    protected $routes = array();
 
 
     /**
@@ -931,11 +849,10 @@ class Lvc_RegexRewriteRouter implements Lvc_RouterInterface
      * @author Anthony Bush
      * @since 2007-05-08
      * */
-    public function addRoute( $regex, $parsingInfo = array( ) )
+    public function addRoute( $regex, $parsingInfo = array() )
     {
-        $this->routes[ $regex ] = $parsingInfo;
+        $this->routes[$regex] = $parsingInfo;
     }
-
 
 
     /**
@@ -953,7 +870,6 @@ class Lvc_RegexRewriteRouter implements Lvc_RouterInterface
     }
 
 
-
     /**
      * Construct the router and set all routes at once. See {@link setRoutes()}
      * for more info.
@@ -965,19 +881,18 @@ class Lvc_RegexRewriteRouter implements Lvc_RouterInterface
      * */
     public function __construct( &$routes = null )
     {
-        if ( !is_null( $routes ) )
+        if( !is_null( $routes ) )
         {
             $this->setRoutes( $routes );
         }
     }
 
 
-
     /**
      * Routes like {@link Lvc_RewriteRouter} does, with the additional check to
      * routes for specifying custom routes based on regular expressions.
      *
-     * @param Lvc_HttpRequest $request A request object to route.
+     * @param LvcHttpRequest $request A request object to route.
      * @return boolean
      * @author Anthony Bush
      * @since 2007-05-08
@@ -987,33 +902,33 @@ class Lvc_RegexRewriteRouter implements Lvc_RouterInterface
 
         $params = $request->getParams();
 
-        if ( isset( $params[ 'uri' ] ) )
+        if( isset( $params['uri'] ) )
         {
 
-            $url = $params[ 'uri' ];
+            $url = $params['uri'];
 
-            $matches = array( );
-            foreach ( $this->routes as $regex => $parsingInfo )
+            $matches = array();
+            foreach( $this->routes as $regex => $parsingInfo )
             {
-                if ( preg_match( $regex, $url, $matches ) )
+                if( preg_match( $regex, $url, $matches ) )
                 {
                     /* Check for redirect action first */
-                    if ( isset( $parsingInfo[ 'redirect' ] ) )
+                    if( isset( $parsingInfo['redirect'] ) )
                     {
-                        $redirectUrl = preg_replace( $regex, $parsingInfo[ 'redirect' ], $url );
+                        $redirectUrl = preg_replace( $regex, $parsingInfo['redirect'], $url );
                         /* Output any custom/additional headers, e.g. "HTTP/1.1 301 Moved Permanently" */
-                        if ( isset( $parsingInfo[ 'headers' ] ) )
+                        if( isset( $parsingInfo['headers'] ) )
                         {
-                            if ( is_array( $parsingInfo[ 'headers' ] ) )
+                            if( is_array( $parsingInfo['headers'] ) )
                             {
-                                foreach ( $parsingInfo[ 'headers' ] as $header )
+                                foreach( $parsingInfo['headers'] as $header )
                                 {
                                     header( $header );
                                 }
                             }
                             else
                             {
-                                header( $parsingInfo[ 'headers' ] );
+                                header( $parsingInfo['headers'] );
                             }
                         }
                         header( 'Location: ' . $redirectUrl );
@@ -1021,81 +936,81 @@ class Lvc_RegexRewriteRouter implements Lvc_RouterInterface
                     }
 
                     /* Get controller name if available */
-                    if ( isset( $parsingInfo[ 'controller' ] ) )
+                    if( isset( $parsingInfo['controller'] ) )
                     {
-                        if ( is_int( $parsingInfo[ 'controller' ] ) )
+                        if( is_int( $parsingInfo['controller'] ) )
                         {
                             /* Get the controller name from the regex matches */
-                            $request->setControllerName( @$matches[ $parsingInfo[ 'controller' ] ] );
+                            $request->setControllerName( @$matches[$parsingInfo['controller']] );
                         }
                         else
                         {
                             /* Use the constant value */
-                            $request->setControllerName( $parsingInfo[ 'controller' ] );
+                            $request->setControllerName( $parsingInfo['controller'] );
                         }
                     }
 
-                    if ( isset( $parsingInfo[ 'sub_path' ] ) )
+                    if( isset( $parsingInfo['sub_path'] ) )
                     {
-                        if ( is_int( $parsingInfo[ 'sub_path' ] ) )
+                        if( is_int( $parsingInfo['sub_path'] ) )
                         {
-                            $request->setControllerSubPath( @$matches[ $parsingInfo[ 'sub_path' ] ] );
+                            $request->setControllerSubPath( @$matches[$parsingInfo['sub_path']] );
                         }
                         else
                         {
                             /* Use the constant value */
-                            $request->setControllerSubPath( $parsingInfo[ 'sub_path' ] );
+                            $request->setControllerSubPath( $parsingInfo['sub_path'] );
                         }
                     }
 
                     /* Get action name if available */
-                    if ( isset( $parsingInfo[ 'action' ] ) )
+                    if( isset( $parsingInfo['action'] ) )
                     {
-                        if ( is_int( $parsingInfo[ 'action' ] ) )
+                        if( is_int( $parsingInfo['action'] ) )
                         {
                             /* Get the action from the regex matches */
-                            $request->setActionName( @$matches[ $parsingInfo[ 'action' ] ] );
+                            $request->setActionName( @$matches[$parsingInfo['action']] );
                         }
                         else
                         {
                             /* Use the constant value */
-                            $request->setActionName( $parsingInfo[ 'action' ] );
+                            $request->setActionName( $parsingInfo['action'] );
                         }
                     }
 
                     /* Get action parameters */
-                    $actionParams = array( );
-                    if ( isset( $parsingInfo[ 'action_params' ] ) )
+                    $actionParams = array();
+                    if( isset( $parsingInfo['action_params'] ) )
                     {
-                        foreach ( $parsingInfo[ 'action_params' ] as $key => $value )
+                        foreach( $parsingInfo['action_params'] as $key => $value )
                         {
-                            if ( is_int( $value ) )
+                            if( is_int( $value ) )
                             {
                                 /* Get the value from the regex matches */
-                                if ( isset( $matches[ $value ] ) && $matches[ $value ] != "" )
+                                if( isset( $matches[$value] ) && $matches[$value] != "" )
                                 {
-                                    $actionParams[ $key ] = $matches[ $value ];
+                                    $actionParams[$key] = $matches[$value];
                                 }
                                 else
                                 {
-                                    $actionParams[ $key ] = null;
+                                    $actionParams[$key] = null;
                                 }
                             }
                             else
                             {
                                 /* Use the constant value */
-                                $actionParams[ $key ] = $value;
+                                $actionParams[$key] = $value;
                             }
                         }
                     }
-                    if ( isset( $parsingInfo[ 'additional_params' ] ) )
+                    if( isset( $parsingInfo['additional_params'] ) )
                     {
-                        if ( is_int( $parsingInfo[ 'additional_params' ] ) )
+                        if( is_int( $parsingInfo['additional_params'] ) )
                         {
                             /* Get the value from the regex matches */
-                            if ( isset( $matches[ $parsingInfo[ 'additional_params' ] ] ) )
+                            if( isset( $matches[$parsingInfo['additional_params']] ) )
                             {
-                                $actionParams = $actionParams + explode( '/', $matches[ $parsingInfo[ 'additional_params' ] ] ); //user/index/data(/data2/data3/data4)
+                                $actionParams = $actionParams + explode( '/', $matches[$parsingInfo['additional_params']] ); //user/index/data(/data2/data3/data4)
                             }
                         }
                     }
@@ -1111,10 +1026,7 @@ class Lvc_RegexRewriteRouter implements Lvc_RouterInterface
     }
 
 
-
 }
-
-
 
 
 /**
@@ -1131,11 +1043,10 @@ class Lvc_RegexRewriteRouter implements Lvc_RouterInterface
  * @author Anthony Bush
  * @since 2007-04-20
  * */
-class Lvc_FrontController
+class LvcFrontController
 {
 
-    protected $routers = array( );
-
+    protected $routers = array();
 
 
     /**
@@ -1148,11 +1059,10 @@ class Lvc_FrontController
      * @return void
      * @author Anthony Bush
      * */
-    public function addRouter( Lvc_RouterInterface $router )
+    public function addRouter( LvcRouter $router )
     {
-        $this->routers[ ] = $router;
+        $this->routers[] = $router;
     }
-
 
 
     /**
@@ -1160,15 +1070,15 @@ class Lvc_FrontController
      * running the appropriate action.
      *
      * @return void
-     * @throws Lvc_Exception
+     * @throws LvcException
      * @author Anthony Bush
      * */
-    public function processRequest( Lvc_Request $request )
+    public function processRequest( LvcRequest $request )
     {
         /* Give routers a chance to (re)-route the request. */
-        foreach ( $this->routers as $router )
+        foreach( $this->routers as $router )
         {
-            if ( $router->route( $request ) ) //if succes, this router will set appropriate controler, action and params
+            if( $router->route( $request ) ) //if succes, this router will set appropriate controler, action and params
             {
                 break;
             }
@@ -1176,7 +1086,7 @@ class Lvc_FrontController
 
         /* Determine if a sub path to the controller was provided */
         $controllerSubPath = $request->getControllerSubPath();
-        if ( !empty( $controllerSubPath ) )
+        if( !empty( $controllerSubPath ) )
         {
             $controllerSubPath .= "/";
         }
@@ -1184,32 +1094,32 @@ class Lvc_FrontController
         /* If controller name or action name are not set, set them to default. */
         $controllerName = $request->getControllerName();
 
-        if ( empty( $controllerName ) )
+        if( empty( $controllerName ) )
         {
-            $controllerName = Lvc_Config::getDefaultControllerName();
-            $actionName = Lvc_Config::getDefaultControllerActionName();
-            $actionParams = $request->getActionParams() + Lvc_Config::getDefaultControllerActionParams();
+            $controllerName = LvcConfig::getDefaultControllerName();
+            $actionName = LvcConfig::getDefaultControllerActionName();
+            $actionParams = $request->getActionParams() + LvcConfig::getDefaultControllerActionParams();
             $request->setActionParams( $actionParams );
         }
         else
         {
             $actionName = $request->getActionName();
-            if ( empty( $actionName ) )
+            if( empty( $actionName ) )
             {
-                $actionName = Lvc_Config::getDefaultActionName();
+                $actionName = LvcConfig::getDefaultActionName();
             }
         }
 
-        $controller = ($request->getController() == null) ? Lvc_Config::getController( $controllerName, $controllerSubPath ) : $request->getController(); //get controller that being set in catch block in Lvc_Exeception::process() or else it will be rethrown and no further catch block
-        if ( is_null( $controller ) )
+        $controller = ( $request->getController() == null ) ? LvcConfig::getController( $controllerName, $controllerSubPath ) : $request->getController(); //get controller that being set in catch block in Lvc_Exeception::process() or else it will be rethrown and no further catch block
+        if( is_null( $controller ) )
         {
-            $controllerPath = Lvc_Config::getcontrollerPaths();
-            $controllerPath = $controllerPath[ 0 ];
+            $controllerPath = LvcConfig::getcontrollerPaths();
+            $controllerPath = $controllerPath[0];
             $msg = 'Unable to load controller "' . $controllerName . '"';
             $msg .= "\nController is \"{$controllerName}\"";
             $msg .= "\nAction is \"{$actionName}\"";
-            $msg .= "\nPlease create class \"" . Lvc_Config::getControllerClassName( $controllerName ) . "\" in file " . $controllerPath . $controllerName . Lvc_Config::getcontrollerSuffix();
-            throw new Lvc_ControllerException( nl2br( $msg ) );
+            $msg .= "\nPlease create class \"" . LvcConfig::getControllerClassName( $controllerName ) . "\" in file " . $controllerPath . $controllerName . LvcConfig::getcontrollerSuffix();
+            throw new LvcControllerException( nl2br( $msg ) );
         }
 
         $controller->setControllerParams( $request->getControllerParams() );
@@ -1217,10 +1127,7 @@ class Lvc_FrontController
     }
 
 
-
 }
-
-
 
 
 /**
@@ -1233,14 +1140,13 @@ class Lvc_FrontController
  * @todo Finish up documentation in here...
  * @since 2007-04-20
  * */
-class Lvc_PageController
+class LvcPageController
 {
 
     /**
      * Hold instance of registry
      */
     protected $registry = null;
-
 
 
     /**
@@ -1250,8 +1156,7 @@ class Lvc_PageController
      *
      * @var array
      * */
-    protected $params = array( );
-
+    protected $params = array();
 
 
     /**
@@ -1259,8 +1164,7 @@ class Lvc_PageController
      *
      * @var array
      * */
-    protected $post = array( );
-
+    protected $post = array();
 
 
     /**
@@ -1268,8 +1172,7 @@ class Lvc_PageController
      *
      * @var array
      * */
-    protected $get = array( );
-
+    protected $get = array();
 
 
     /**
@@ -1278,7 +1181,6 @@ class Lvc_PageController
      * @var string
      * */
     protected $controllerName = null;
-
 
 
     /**
@@ -1290,7 +1192,6 @@ class Lvc_PageController
     protected $controllerSubPath = null;
 
 
-
     /**
      * Action Name (e.g. action_name, not actionActionName)
      *
@@ -1299,14 +1200,12 @@ class Lvc_PageController
     protected $actionName = null;
 
 
-
     /**
      * Variables we will pass to the view.
      *
      * @var array()
      * */
-    protected $viewVars = array( );
-
+    protected $viewVars = array();
 
 
     /**
@@ -1317,7 +1216,6 @@ class Lvc_PageController
     protected $hasLoadedView = false;
 
 
-
     /**
      * Specifies whether or not to load the default view for the action. If the
      * action should not render any view, set it to false in the sub controller.
@@ -1325,7 +1223,6 @@ class Lvc_PageController
      * @var boolean
      * */
     protected $loadDefaultView = true;
-
 
 
     /**
@@ -1339,7 +1236,6 @@ class Lvc_PageController
     protected $useLayoutOverride = false;
 
 
-
     /**
      * Don't set this yourself. It's used internally by parent controller /
      * actions to determine which layout to use when requesting a sub action.
@@ -1350,7 +1246,6 @@ class Lvc_PageController
     protected $layoutOverride = null;
 
 
-
     /**
      * Set this in your controller to use a layout.
      *
@@ -1359,14 +1254,12 @@ class Lvc_PageController
     protected $layout = null;
 
 
-
     /**
      * An array of view variables specifically for the layout file.
      *
      * @var array
      * */
-    protected $layoutVars = array( );
-
+    protected $layoutVars = array();
 
 
     /**
@@ -1375,9 +1268,8 @@ class Lvc_PageController
      */
     public function __construct()
     {
-        $this->registry = Registry::getInstance();
+        $this->registry = LvcRegistry::getInstance();
     }
-
 
 
     /**
@@ -1393,16 +1285,15 @@ class Lvc_PageController
     {
         $this->params = $params;
         /* Make a reference to the form data so we can get to it easier. */
-        if ( isset( $this->params[ 'post' ] ) )
+        if( isset( $this->params['post'] ) )
         {
-            $this->post = & $this->params[ 'post' ];
+            $this->post = & $this->params['post'];
         }
-        if ( isset( $this->params[ 'get' ] ) )
+        if( isset( $this->params['get'] ) )
         {
-            $this->get = & $this->params[ 'get' ];
+            $this->get = & $this->params['get'];
         }
     }
-
 
 
     /**
@@ -1420,7 +1311,6 @@ class Lvc_PageController
     }
 
 
-
     /**
      * Don't call this yourself. It's used internally when creating new
      * controllers so the controllers are aware of their sub path without
@@ -1436,7 +1326,6 @@ class Lvc_PageController
     }
 
 
-
     /**
      * Set a variable for the view to use.
      *
@@ -1447,9 +1336,8 @@ class Lvc_PageController
      * */
     public function setVar( $varName, $value )
     {
-        $this->viewVars[ $varName ] = $value;
+        $this->viewVars[$varName] = $value;
     }
-
 
 
     /**
@@ -1465,7 +1353,6 @@ class Lvc_PageController
     }
 
 
-
     /**
      * Get the current value for a view variable.
      *
@@ -1476,16 +1363,15 @@ class Lvc_PageController
      * */
     public function getVar( $varName )
     {
-        if ( isset( $this->viewVars[ $varName ] ) )
+        if( isset( $this->viewVars[$varName] ) )
         {
-            return $this->viewVars[ $varName ];
+            return $this->viewVars[$varName];
         }
         else
         {
             return null;
         }
     }
-
 
 
     /**
@@ -1499,9 +1385,8 @@ class Lvc_PageController
      * */
     public function setLayoutVar( $varName, $value )
     {
-        $this->layoutVars[ $varName ] = $value;
+        $this->layoutVars[$varName] = $value;
     }
-
 
 
     /**
@@ -1514,16 +1399,15 @@ class Lvc_PageController
      * */
     public function getLayoutVar( $varName )
     {
-        if ( isset( $this->layoutVars[ $varName ] ) )
+        if( isset( $this->layoutVars[$varName] ) )
         {
-            return $this->layoutVars[ $varName ];
+            return $this->layoutVars[$varName];
         }
         else
         {
             return null;
         }
     }
-
 
 
     /**
@@ -1538,7 +1422,6 @@ class Lvc_PageController
     }
 
 
-
     /**
      * Get layout name.
      *
@@ -1549,7 +1432,6 @@ class Lvc_PageController
     {
         return $this->layout;
     }
-
 
 
     /**
@@ -1567,7 +1449,6 @@ class Lvc_PageController
     }
 
 
-
     /**
      * Set whether or not to load the default view for the action
      * @param boolean $status
@@ -1576,7 +1457,6 @@ class Lvc_PageController
     {
         $this->loadDefaultView = false;
     }
-
 
 
     /**
@@ -1588,7 +1468,6 @@ class Lvc_PageController
     {
         $this->layout = null;
     }
-
 
 
     /**
@@ -1603,7 +1482,6 @@ class Lvc_PageController
     }
 
 
-
     /**
      * Determine whether or not the the controller has the specified action.
      *
@@ -1613,7 +1491,7 @@ class Lvc_PageController
      * */
     public function hasAction( $actionName )
     {
-        if ( method_exists( $this, Lvc_Config::getActionFunctionName( $actionName ) ) )
+        if( method_exists( $this, LvcConfig::getActionFunctionName( $actionName ) ) )
         {
             return true;
         }
@@ -1622,7 +1500,6 @@ class Lvc_PageController
             return false;
         }
     }
-
 
 
     /**
@@ -1635,13 +1512,12 @@ class Lvc_PageController
      * @return string output from running the action.
      * @author Anthony Bush
      * */
-    public function getActionOutput( $actionName, &$actionParams = array( ) )
+    public function getActionOutput( $actionName, &$actionParams = array() )
     {
         ob_start();
         $this->runAction( $actionName, $actionParams );
         return ob_get_clean();
     }
-
 
 
     /**
@@ -1652,19 +1528,19 @@ class Lvc_PageController
      * @param string $actionName the action name to run.
      * @param array $actionParams the parameters to pass to the action.
      * @return void
-     * @throws Lvc_Exception
+     * @throws LvcException
      * @author Anthony Bush
      * */
-    public function runAction( $actionName, &$actionParams = array( ) )
+    public function runAction( $actionName, &$actionParams = array() )
     {
         $this->actionName = $actionName;
-        $func = Lvc_Config::getActionFunctionName( $actionName );
-        if ( method_exists( $this, $func ) )
+        $func = LvcConfig::getActionFunctionName( $actionName );
+        if( method_exists( $this, $func ) )
         {
             $this->before();
 
             /* Call the action */
-            if ( Lvc_Config::getSendActionParamsAsArray() )
+            if( LvcConfig::getSendActionParamsAsArray() )
             {
                 $this->$func( $actionParams );
             }
@@ -1675,28 +1551,28 @@ class Lvc_PageController
                 $reflection_method = new ReflectionMethod( $this, $func );
                 $reflection_args = $reflection_method->getParameters();
 
-                foreach ( $reflection_args as $key => $args )
+                foreach( $reflection_args as $key => $args )
                 {
-                    if ( $actionParams[ $key ] == null )
+                    if( $actionParams[$key] == null )
                     {
-                        if ( $args->isOptional() )
+                        if( $args->isOptional() )
                         {
-                            $actionParams[ $key ] = $args->getDefaultValue();
+                            $actionParams[$key] = $args->getDefaultValue();
                             $param_count++; /* increase its count in case some method dont pass any params but the receiving function have default params value and its value is assign to $actinParams and send to receiving func */
                         }
                     }
                 }
 
-                if ( $param_count < $reflection_method->getNumberOfParameters() )
+                if( $param_count < $reflection_method->getNumberOfParameters() )
                 {
-                    throw new Lvc_Exception( "Insufficient method parameter (Needed {$reflection_method->getNumberOfParameters()}, supplied {$param_count})" );
+                    throw new LvcException( "Insufficient method parameter (Needed {$reflection_method->getNumberOfParameters()}, supplied {$param_count})" );
                 }
 
                 call_user_func_array( array( $this, $func ), $actionParams );
             }
 
             /* Load the view */
-            if ( !$this->hasLoadedView && $this->loadDefaultView )
+            if( !$this->hasLoadedView && $this->loadDefaultView )
             {
                 $this->loadView( $this->getControllerPath() . '/' . $actionName );
             }
@@ -1706,16 +1582,15 @@ class Lvc_PageController
         }
         else
         {
-            $controllerPath = Lvc_Config::getcontrollerPaths();
-            $controllerPath = $controllerPath[ 0 ];
+            $controllerPath = LvcConfig::getcontrollerPaths();
+            $controllerPath = $controllerPath[0];
             $msg = 'Unable to load action ' . '"' . $actionName . '"';
             $msg .= "\nController is \"{$this->getControllerName()}\"";
             $msg .= "\nAction is \"{$actionName}\"";
-            $msg .="\nPlease write action " . '"' . $func . '" method inside class ' . Lvc_Config::getControllerClassName( $this->getControllerName() ) . ' in file ' . $controllerPath . $this->getControllerName() . Lvc_Config::getcontrollerSuffix();
-            throw new Lvc_ActionException( nl2br( $msg ) );
+            $msg .= "\nPlease write action " . '"' . $func . '" method inside class ' . LvcConfig::getControllerClassName( $this->getControllerName() ) . ' in file ' . $controllerPath . $this->getControllerName() . LvcConfig::getcontrollerSuffix();
+            throw new LvcActionException( nl2br( $msg ) );
         }
     }
-
 
 
     /**
@@ -1733,22 +1608,22 @@ class Lvc_PageController
      *
      * @param string $controllerViewName 'controller_name/action_name' format.
      * @return void
-     * @throws Lvc_Exception
+     * @throws LvcException
      * @author Anthony Bush
      * */
     protected function loadView( $controllerViewName )
     {
 
-        $view = Lvc_Config::getControllerView( $controllerViewName, $this->viewVars );
-        if ( is_null( $view ) )
+        $view = LvcConfig::getControllerView( $controllerViewName, $this->viewVars );
+        if( is_null( $view ) )
         {
-            $controllerViewPath = Lvc_Config::getcontrollerViewPaths();
-            $controllerViewPath = $controllerViewPath[ 0 ];
+            $controllerViewPath = LvcConfig::getcontrollerViewPaths();
+            $controllerViewPath = $controllerViewPath[0];
             $msg = 'Unable to load controller view "' . $controllerViewName . '"';
             $msg .= "\nController is \"{$this->controllerName}\"";
             $msg .= "\nAction is \"{$this->actionName}\"";
-            $msg .= "\nPlease create file " . $controllerViewPath . $controllerViewName . Lvc_Config::getcontrollerViewSuffix();
-            throw new Lvc_ViewException( nl2br( $msg ) );
+            $msg .= "\nPlease create file " . $controllerViewPath . $controllerViewName . LvcConfig::getcontrollerViewSuffix();
+            throw new LvcViewException( nl2br( $msg ) );
         }
         else
         {
@@ -1756,24 +1631,24 @@ class Lvc_PageController
             $viewContents = $view->getOutput();
         }
 
-        if ( $this->useLayoutOverride )
+        if( $this->useLayoutOverride )
         {
             $this->layout = $this->layoutOverride;
         }
-        if ( !empty( $this->layout ) )
+        if( !empty( $this->layout ) )
         {
             /* Use an explicit name for this data so we don't override some other variable... */
-            $this->layoutVars[ Lvc_Config::getLayoutContentVarName() ] = $viewContents;
-            $layoutView = Lvc_Config::getLayoutView( $this->layout, $this->layoutVars );
-            if ( is_null( $layoutView ) )
+            $this->layoutVars[LvcConfig::getLayoutContentVarName()] = $viewContents;
+            $layoutView = LvcConfig::getLayoutView( $this->layout, $this->layoutVars );
+            if( is_null( $layoutView ) )
             {
-                $layoutViewPath = Lvc_Config::getlayoutViewPaths();
-                $layoutViewPath = $layoutViewPath[ 0 ];
+                $layoutViewPath = LvcConfig::getlayoutViewPaths();
+                $layoutViewPath = $layoutViewPath[0];
                 $msg = 'Unable to load layout "' . $this->layout . '" for controller "' . $this->controllerName . '"';
                 $msg .= "\nController is \"{$this->controllerName}\"";
                 $msg .= "\nAction is \"{$this->actionName}\"";
-                $msg .= "\nPlease create file " . $layoutViewPath . $this->layout . Lvc_Config::getlayoutViewSuffix();
-                throw new Lvc_ViewException( nl2br( $msg ) );
+                $msg .= "\nPlease create file " . $layoutViewPath . $this->layout . LvcConfig::getlayoutViewSuffix();
+                throw new LvcViewException( nl2br( $msg ) );
             }
             else
             {
@@ -1783,11 +1658,10 @@ class Lvc_PageController
         }
         else
         {
-            echo($viewContents);
+            echo( $viewContents );
         }
         $this->hasLoadedView = true;
     }
-
 
 
     /**
@@ -1805,7 +1679,6 @@ class Lvc_PageController
     }
 
 
-
     /**
      * wrapper for beforeAction, so child class automatically call it
      * parent::beforeAction without explicitly call it in child class
@@ -1818,7 +1691,6 @@ class Lvc_PageController
     }
 
 
-
     /**
      * wrapper for afterAction, so child class automatically call it
      * parent::afterAction without explicitly call it in child class
@@ -1829,7 +1701,6 @@ class Lvc_PageController
         $parent::afterAction();
         $this->afterAction();
     }
-
 
 
     /**
@@ -1845,7 +1716,6 @@ class Lvc_PageController
     }
 
 
-
     /**
      * Execute code after every action.
      * Override this in sub classes
@@ -1857,7 +1727,6 @@ class Lvc_PageController
     {
 
     }
-
 
 
     /**
@@ -1875,35 +1744,34 @@ class Lvc_PageController
      * @param array $controllerParams optional controller params. Current controller params will be passed on if not specified.
      * @param string $layout optional layout to force for the sub action.
      * @return string output from requested controller's action.
-     * @throws Lvc_Exception
+     * @throws LvcException
      * @author Anthony Bush
      * */
-    protected function requestAction( $actionName, $actionParams = array( ), $controllerName = null, $controllerParams = null, $layout = null )
+    protected function requestAction( $actionName, $actionParams = array(), $controllerName = null, $controllerParams = null, $layout = null )
     {
-        if ( empty( $controllerName ) )
+        if( empty( $controllerName ) )
         {
             $controllerName = $this->controllerName;
         }
-        if ( is_null( $controllerParams ) )
+        if( is_null( $controllerParams ) )
         {
             $controllerParams = $this->params;
         }
-        $controller = Lvc_Config::getController( $controllerName );
-        if ( is_null( $controller ) )
+        $controller = LvcConfig::getController( $controllerName );
+        if( is_null( $controller ) )
         {
-            $controllerPath = Lvc_Config::getcontrollerPaths();
-            $controllerPath = $controllerPath[ 0 ];
+            $controllerPath = LvcConfig::getcontrollerPaths();
+            $controllerPath = $controllerPath[0];
             $msg = 'Unable to load controller "' . $controllerName . '"';
             $msg .= "\nController is \"{$controllerName}\"";
             $msg .= "\nAction is \"{$actionName}\"";
-            $msg .= "\nPlease create class \"" . Lvc_Config::getControllerClassName( $controllerName ) . "\" in file " . $controllerPath . $controllerName . Lvc_Config::getcontrollerSuffix();
-            throw new Lvc_ControllerException( nl2br( $msg ) );
+            $msg .= "\nPlease create class \"" . LvcConfig::getControllerClassName( $controllerName ) . "\" in file " . $controllerPath . $controllerName . LvcConfig::getcontrollerSuffix();
+            throw new LvcControllerException( nl2br( $msg ) );
         }
         $controller->setControllerParams( $controllerParams );
         $controller->setLayoutOverride( $layout );
         return $controller->getActionOutput( $actionName, $actionParams );
     }
-
 
 
     /**
@@ -1918,7 +1786,6 @@ class Lvc_PageController
     }
 
 
-
     /**
      * Get the controller sub path. Mostly used internally...
      *
@@ -1929,7 +1796,6 @@ class Lvc_PageController
     {
         return $this->controllerSubPath;
     }
-
 
 
     /**
@@ -1944,7 +1810,6 @@ class Lvc_PageController
     }
 
 
-
     /**
      * Get the controller params. Mostly used internally...
      *
@@ -1957,10 +1822,7 @@ class Lvc_PageController
     }
 
 
-
 }
-
-
 
 
 /**
@@ -1975,7 +1837,7 @@ class Lvc_PageController
  * @author Anthony Bush
  * @since 2007-04-20
  * */
-class Lvc_View
+class LvcView
 {
 
     /**
@@ -1986,7 +1848,6 @@ class Lvc_View
     protected $fileName;
 
 
-
     /**
      * Data to be exposed to the view template file.
      *
@@ -1995,14 +1856,12 @@ class Lvc_View
     protected $data;
 
 
-
     /**
      * A reference to the parent controller
      *
      * @var Lvc_Controller
      * */
     protected $controller;
-
 
 
     /**
@@ -2020,7 +1879,6 @@ class Lvc_View
     }
 
 
-
     /**
      * Output the view (aka render).
      *
@@ -2030,9 +1888,8 @@ class Lvc_View
     public function output()
     {
         extract( $this->data, EXTR_SKIP );
-        include($this->fileName);
+        include( $this->fileName );
     }
-
 
 
     /**
@@ -2049,7 +1906,6 @@ class Lvc_View
     }
 
 
-
     /**
      * Render a sub element from within a view.
      *
@@ -2059,29 +1915,28 @@ class Lvc_View
      * @param string $elementName name of element to render
      * @param array $data optional data to pass to the element.
      * @return void
-     * @throws Lvc_Exception
+     * @throws LvcException
      * @author Anthony Bush
      * */
-    protected function renderElement( $elementName, $data = array( ) )
+    protected function renderElement( $elementName, $data = array() )
     {
-        $view = Lvc_Config::getElementView( $elementName, $data );
-        if ( !is_null( $view ) )
+        $view = LvcConfig::getElementView( $elementName, $data );
+        if( !is_null( $view ) )
         {
             $view->setController( $this->controller );
             $view->output();
         }
         else
         {
-            $elementViewPath = Lvc_Config::getelementViewPaths();
-            $elementViewPath = $elementViewPath[ 0 ];
+            $elementViewPath = LvcConfig::getelementViewPaths();
+            $elementViewPath = $elementViewPath[0];
             $msg = 'Unable to render element "' . $elementName . '"';
-            $msg .= "\nPlease create file " . $elementViewPath . $elementName . Lvc_Config::getelementViewSuffix();
+            $msg .= "\nPlease create file " . $elementViewPath . $elementName . LvcConfig::getelementViewSuffix();
             /* cannot throw Lvc_ViewException, because it will give an error regarding cannot load layout */
             /* instead of cannot load element due to element reside inside layout */
             trigger_error( $msg, E_USER_WARNING );
         }
     }
-
 
 
     /**
@@ -2096,7 +1951,6 @@ class Lvc_View
     {
         $this->controller = $controller;
     }
-
 
 
     /**
@@ -2115,13 +1969,10 @@ class Lvc_View
     }
 
 
-
 }
 
 
-
-
-class Registry
+class LvcRegistry
 {
 
     /**
@@ -2131,13 +1982,11 @@ class Registry
     private static $instance = null;
 
 
-
     /**
      * Registry array of objects
      * @access private
      */
-    private static $objects = array( );
-
+    private static $objects = array();
 
 
     private function __construct()
@@ -2146,23 +1995,20 @@ class Registry
     }
 
 
-
     private function __clone()
     {
 
     }
 
 
-
     public static function getInstance()
     {
-        if ( self::$instance == null )
+        if( self::$instance == null )
         {
             self::$instance = new self();
         }
         return self::$instance;
     }
-
 
 
     /**
@@ -2173,9 +2019,8 @@ class Registry
      */
     public static function get( $key )
     {
-        return isset( self::$objects[ $key ] ) ? self::$objects[ $key ] : null;
+        return isset( self::$objects[$key] ) ? self::$objects[$key] : null;
     }
-
 
 
     /**
@@ -2186,9 +2031,8 @@ class Registry
      */
     public static function set( $key, $val )
     {
-        self::$objects[ $key ] = $val;
+        self::$objects[$key] = $val;
     }
-
 
 
     /**
@@ -2200,14 +2044,13 @@ class Registry
     public static function delete( $key )
     {
         $return = false;
-        if ( isset( self::$objects[ $key ] ) )
+        if( isset( self::$objects[$key] ) )
         {
-            unset( self::$objects[ $key ] );
+            unset( self::$objects[$key] );
             $return = true;
         }
         return $return;
     }
-
 
 
     /**
@@ -2218,7 +2061,7 @@ class Registry
     public static function isExist( $key )
     {
         $return = false;
-        if ( self::getInstance()->$key )
+        if( self::getInstance()->$key )
         {
             $return = true;
         }
@@ -2226,54 +2069,50 @@ class Registry
     }
 
 
-
     public function __set( $key, $val )
     {
-        self::$objects[ $key ] = $val;
+        self::$objects[$key] = $val;
     }
-
 
 
     public function __get( $key )
     {
-        return self::$objects[ $key ];
+        return self::$objects[$key];
     }
 
 
-
 }
-
-
 
 
 /**
  * Abstract away main code from index.php
  * @author slier
  */
-class Dispatcher
+class LvcDispatcher
 {
 
     /**
-     * Reference to Lvc_RouterInterface instance
+     * Reference to LvcRouter instance
      *
      * @var array
      * */
-    protected $routers = array( );
-
+    protected $routers = array();
 
 
     /**
-     * Construct a view to be rendered.
+     * Construct a dispatcher
      *
-     * @param Lvc_RouterInterface $router
+     * @param LvcRouter $router
      * @return void
      * @author slier
      * */
-    public function __construct( Lvc_RouterInterface $router )
+    public function __construct( LvcRouter $router = null )
     {
-        $this->routers[ ] = $router;
+        if( !is_null( $router ) )
+        {
+            $this->routers[] = $router;
+        }
     }
-
 
 
     /**
@@ -2285,11 +2124,10 @@ class Dispatcher
      * @return void
      * @author Anthony Bush
      * */
-    public function addRouter( Lvc_RouterInterface $router )
+    public function addRouter( LvcRouter $router )
     {
-        $this->routers[ ] = $router;
+        $this->routers[] = $router;
     }
-
 
 
     /**
@@ -2300,30 +2138,33 @@ class Dispatcher
     public function go()
     {
         /* prevent multiple request by browser, causing inconsistent in session data */
-        if ( trim( $_SERVER[ 'REQUEST_URI' ], '/' ) != 'favicon.ico' )
+        if( trim( $_SERVER['REQUEST_URI'], '/' ) != 'favicon.ico' )
         {
             try
             {
-                $fc = new Lvc_FrontController();
-                foreach ( $this->routers as $router )
-                    $fc->addRouter( $router );
+                $request = new LvcHttpRequest();
+                $front_controller = new LvcFrontController();
 
-                $request = new Lvc_HttpRequest();
-                $fc->processRequest( $request );
+                foreach( $this->routers as $router )
+                {
+                    $front_controller->addRouter( $router );
+                }
+
+                $front_controller->processRequest( $request );
             }
-            catch( Lvc_ControllerException $e )
+            catch( LvcControllerException $e )
             {
                 $e->handleException( $request );
             }
-            catch( Lvc_ActionException $e )
+            catch( LvcActionException $e )
             {
                 $e->handleException( $request );
             }
-            catch( Lvc_ViewException $e )
+            catch( LvcViewException $e )
             {
                 $e->handleException( $request );
             }
-            catch( Lvc_Exception $e )
+            catch( LvcException $e )
             {
                 $e->handleException( $request );
             }
@@ -2336,10 +2177,7 @@ class Dispatcher
     }
 
 
-
 }
-
-
 
 
 /**
@@ -2349,25 +2187,25 @@ class Dispatcher
  * @author Anthony Bush
  * @since 2007-04-20
  * */
-class Lvc_Exception extends Exception
+class LvcException extends Exception
 {
 
-    public function handleException( Lvc_Request $r )
+    public function handleException( LvcRequest $r )
     {
         try
         {
             /* Get a request for the 404 error page. */
-            $request = new Lvc_Request();
+            $request = new LvcRequest();
             $request->setControllerName( 'error' );
             $request->setActionName( 'view' );
-            $controller = Lvc_Config::getController( $request->getControllerName() );
+            $controller = LvcConfig::getController( $request->getControllerName() );
             $request->setController( $controller );
             $error_msg = DEVELOPMENT ? ( $this->getMessage() . $r->getAdditionalErrorInfo() ) : null;
 
             /* load view using preset layout in AppController */
             /* Get a new front controller without any routers, and have it process our handmade request. */
-            $request->setActionParams( array( 'error' => '404', 'msg'   => $error_msg ) );
-            $fc = new Lvc_FrontController();
+            $request->setActionParams( array( 'error' => '404', 'msg' => $error_msg ) );
+            $fc = new LvcFrontController();
             $fc->processRequest( $request );
             error_log( $this->getMessage() );
         }
@@ -2378,34 +2216,25 @@ class Lvc_Exception extends Exception
     }
 
 
-
 }
 
 
-
-
-class Lvc_ControllerException extends Lvc_Exception
+class LvcControllerException extends LvcException
 {
 
 }
 
 
-
-
-class Lvc_ActionException extends Lvc_Exception
+class LvcActionException extends LvcException
 {
 
 }
 
 
-
-
-class Lvc_ViewException extends Lvc_Exception
+class LvcViewException extends LvcException
 {
 
 }
-
-
 
 
 ?>

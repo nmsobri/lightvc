@@ -1,6 +1,6 @@
 <?php
 
-class AppView extends Lvc_View
+class AppView extends LvcView
 {
 	public function requireCss($cssFile)
 	{

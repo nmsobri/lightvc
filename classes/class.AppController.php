@@ -1,40 +1,34 @@
 <?php
 
-class AppController extends Lvc_PageController
+class AppController extends LvcPageController
 {
 
-    protected $layout = 'main';
-
+    protected $layout = 'default';
 
 
     protected function beforeAction()
     {
-        $this->registry->set( 'session', new Session );
-        $this->registry->set( 'cookie', new Cookie );
-        $this->requireJsInHead( 'jquery.js' );
+        $this->setLayoutVar( 'pageTitle', 'Untitled' );
+        $this->requireCss( 'style.css' );
     }
-
 
 
     public function requireCss( $cssFile )
     {
-        $this->layoutVars[ 'requiredCss' ][ ] = $cssFile;
+        $this->layoutVars['requiredCss'][] = $cssFile;
     }
-
 
 
     public function requireJs( $jsFile )
     {
-        $this->layoutVars[ 'requiredJs' ][ ] = $jsFile;
+        $this->layoutVars['requiredJs'][] = $jsFile;
     }
-
 
 
     public function requireJsInHead( $jsFile )
     {
-        $this->layoutVars[ 'requiredJsInHead' ][ ] = $jsFile;
+        $this->layoutVars['requiredJsInHead'][] = $jsFile;
     }
-
 
 
     protected function loadPageNotFound()
@@ -44,15 +38,13 @@ class AppController extends Lvc_PageController
     }
 
 
-
     public function sendHttpStatusHeader( $code )
     {
-        include_once('class.HttpStatusCode.php');
+        include_once( 'class.HttpStatusCode.php' );
         $statusCode = new HttpStatusCode( $code );
         header( 'HTTP 1.1 ' . $statusCode->getCode() . ' ' . $statusCode->getDefinition() );
         return $statusCode;
     }
-
 
 
     public function redirectToAction( $actionName )
@@ -61,10 +53,7 @@ class AppController extends Lvc_PageController
     }
 
 
-
 }
-
-
 
 
 ?>

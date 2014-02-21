@@ -22,9 +22,6 @@ class ErrorController extends AppController
         $this->setVar( 'error_msg', $msg == null ? $statusCode->getDefinition() : $msg );
         $this->loadView( $this->getControllerName() . '/' . $statusCode->getCode() );
     }
-
-
-
 }
 
 ?>

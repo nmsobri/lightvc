@@ -5,26 +5,23 @@ error_reporting( E_ALL ^ E_NOTICE );
 
 /* Derived Constants */
 define( 'BASE_PATH', dirname( dirname( __FILE__ ) ) . '/' ); //absolute path to root folder
-define( 'APP_PATH', str_replace( 'index.php', '', $_SERVER[ 'SCRIPT_NAME' ] ) ); //relative path from root folder
+define( 'APP_PATH', str_replace( 'index.php', '', $_SERVER['SCRIPT_NAME'] ) ); //relative path from root folder
 define( 'CSS_PATH', APP_PATH . 'assets/css/' );
 define( 'JS_PATH', APP_PATH . 'assets/js/' );
 define( 'IMG_PATH', APP_PATH . 'assets/img/' );
 define( 'DEVELOPMENT', true );
 
-
 /* Include and configure the LighVC framework (http://lightvc.org/) */
 
+include( BASE_PATH . 'configs/routes.php' );
+include( BASE_PATH . 'cores/class.LightVc.php' );
+include( BASE_PATH . 'classes/class.Autoloader.php' );
 
-include(BASE_PATH . 'configs/routes.php');
-include_once(BASE_PATH . 'cores/class.LightVc.php');
-include(BASE_PATH . 'classes/class.Autoloader.php');
-
-Lvc_Config::addControllerPath( BASE_PATH . 'controllers/' );
-Lvc_Config::addControllerViewPath( BASE_PATH . 'views/' );
-Lvc_Config::addLayoutViewPath( BASE_PATH . 'views/layouts/' );
-Lvc_Config::addElementViewPath( BASE_PATH . 'views/elements/' );
-Lvc_Config::setViewClassName( 'AppView' );
-
+LvcConfig::addControllerPath( BASE_PATH . 'controllers/' );
+LvcConfig::addControllerViewPath( BASE_PATH . 'views/' );
+LvcConfig::addLayoutViewPath( BASE_PATH . 'views/layouts/' );
+LvcConfig::addElementViewPath( BASE_PATH . 'views/elements/' );
+LvcConfig::setViewClassName( 'AppView' );
 
 
 /* Enable the optional Autoloader and/or SimpleReflector helpers by uncommenting the following: */
