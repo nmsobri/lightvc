@@ -14,7 +14,7 @@ define( 'DEVELOPMENT', true );
 /* Include and configure the LighVC framework (http://lightvc.org/) */
 
 include( BASE_PATH . 'configs/routes.php' );
-include( BASE_PATH . 'cores/class.LightVc.php' );
+include(BASE_PATH . 'classes/class.LightVc.php');
 include( BASE_PATH . 'classes/class.Autoloader.php' );
 
 LvcConfig::addControllerPath( BASE_PATH . 'controllers/' );
