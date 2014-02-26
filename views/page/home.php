@@ -12,7 +12,7 @@ $this->setLayoutVar('pageTitle', 'LightVC Skeleton App');
 
 <ul>
 	<li>"/" activate controller <b>Page Controller</b> and  action <b>ActionView</b> with "home" for the page_name parameter.</li>
-	<li>"/page/about" activate controller <b>Page controller</b> and action <b>ActionView</b> with "about" for the page_name parameter.</li>
+	<li>"/page/about" activate controller <b>Page controller</b> and action <b>ActionView</b> with "about" for the pageName parameter.</li>
 	<li>"/user/edit/22" activate controller <b>User controller</b>  and action <b>ActionEdit</b> with the remaining URL used to populate the action method's arguments.</li>
 </ul>
 
