@@ -44,20 +44,35 @@
 class LvcConfig
 {
 
+    /*Controller path*/
     protected static $controllerPaths = array();
-    protected static $controllerSuffix = '.php'; #e.g. _controller.php
 
+    /*Controller suffix eg:_controller.php*/
+    protected static $controllerSuffix = '.php';
+
+    /*Controller view path*/
     protected static $controllerViewPaths = array();
-    protected static $controllerViewSuffix = '.php'; #e.g. .tpl.php
 
+    /*Controller view suffix eg:.tpl.php*/
+    protected static $controllerViewSuffix = '.php';
+
+    /*Layout view path*/
     protected static $layoutViewPaths = array();
-    protected static $layoutViewSuffix = '.php'; #e.g. .tpl.php
 
+    /*Layout view suffix eg:.tpl.php*/
+    protected static $layoutViewSuffix = '.php';
+
+    /*Element view path*/
     protected static $elementViewPaths = array();
-    protected static $elementViewSuffix = '.php'; #e.g. .tpl.php
 
-    protected static $viewClassName = 'Lvc_View'; #e.g. AppView
-    protected static $layoutContentVarName = 'layoutContent'; #e.g. content_for_layout
+    /*Element view suffix eg:.tpl.php*/
+    protected static $elementViewSuffix = '.php';
+
+    /*View class name eg:AppView*/
+    protected static $viewClassName = 'Lvc_View';
+
+    /*Layout content variable name eg:content_for_layout*/
+    protected static $layoutContentVarName = 'layoutContent';
 
 
     /**
@@ -70,8 +85,6 @@ class LvcConfig
      * @var boolean
      * */
     protected static $sendActionParamsAsArray = false;
-
-    /* These may be moved into some sort of routing thing later. For now: */
 
 
     /**
@@ -107,184 +120,302 @@ class LvcConfig
     protected static $defaultActionName = 'index';
 
 
-    /* Configuration Methods */
-
+    /**
+     * Set controller path
+     * @param string $path
+     */
     public static function addControllerPath($path)
     {
         self::$controllerPaths[] = $path;
     }
 
 
+    /**
+     * Set controller suffix
+     * @param string $suffix
+     */
     public static function setControllerSuffix($suffix)
     {
         self::$controllerSuffix = $suffix;
     }
 
 
+    /**
+     * Set controller view path
+     * @param string $path
+     */
     public static function addControllerViewPath($path)
     {
         self::$controllerViewPaths[] = $path;
     }
 
 
+    /**
+     * Set controller view suffix
+     * @param string $suffix
+     */
     public static function setControllerViewSuffix($suffix)
     {
         self::$controllerViewSuffix = $suffix;
     }
 
 
+    /**
+     * Set layout view path
+     * @param string $path
+     */
     public static function addLayoutViewPath($path)
     {
         self::$layoutViewPaths[] = $path;
     }
 
 
+    /**
+     * Set layout view suffix
+     * @param string $suffix
+     */
     public static function setLayoutViewSuffix($suffix)
     {
         self::$layoutViewSuffix = $suffix;
     }
 
 
+    /**
+     * Set element view path
+     * @param string $path
+     */
     public static function addElementViewPath($path)
     {
         self::$elementViewPaths[] = $path;
     }
 
 
+    /**
+     * Set element view suffix
+     * @param string $suffix
+     */
     public static function setElementViewSuffix($suffix)
     {
         self::$elementViewSuffix = $suffix;
     }
 
 
+    /**
+     * Set view class name
+     * @param string $className
+     */
     public static function setViewClassName($className)
     {
         self::$viewClassName = $className;
     }
 
 
+    /**
+     * Set layout content variable name
+     * @param string $varName
+     */
     public static function setLayoutContentVarName($varName)
     {
         self::$layoutContentVarName = $varName;
     }
 
 
+    /**
+     * Get layout content variable naem
+     * @return string
+     */
     public static function getLayoutContentVarName()
     {
         return self::$layoutContentVarName;
     }
 
 
+    /**
+     * Set flag whther to send action params as array or single variable
+     * @param bool $bool
+     */
     public static function setSendActionParamsAsArray($bool)
     {
         self::$sendActionParamsAsArray = $bool;
     }
 
 
+    /**
+     * Get flag on how to send action params
+     * @return bool
+     */
     public static function getSendActionParamsAsArray()
     {
         return self::$sendActionParamsAsArray;
     }
 
 
+    /**
+     * Set default controller name
+     * @param string $defaultControllerName
+     */
     public static function setDefaultControllerName($defaultControllerName)
     {
         self::$defaultControllerName = $defaultControllerName;
     }
 
 
+    /**
+     * Set default controller action name
+     * @param string $defaultControllerActionName
+     */
     public static function setDefaultControllerActionName($defaultControllerActionName)
     {
         self::$defaultControllerActionName = $defaultControllerActionName;
     }
 
 
+    /**
+     * Set default controller action params
+     * @param array $defaultControllerActionParams
+     */
     public static function setDefaultControllerActionParams($defaultControllerActionParams)
     {
         self::$defaultControllerActionParams = $defaultControllerActionParams;
     }
 
 
+    /**
+     * Set default action name
+     * @param string $defaultActionName
+     */
     public static function setDefaultActionName($defaultActionName)
     {
         self::$defaultActionName = $defaultActionName;
     }
 
 
+    /**
+     * Get default controller naem
+     * @return string
+     */
     public static function getDefaultControllerName()
     {
         return self::$defaultControllerName;
     }
 
 
+    /**
+     * Get default controller action name
+     * @return string
+     */
     public static function getDefaultControllerActionName()
     {
         return self::$defaultControllerActionName;
     }
 
 
+    /**
+     * Get default controller action params
+     * @return string
+     */
     public static function getDefaultControllerActionParams()
     {
         return self::$defaultControllerActionParams;
     }
 
 
+    /**
+     * Get default action name
+     * @return string
+     */
     public static function getDefaultActionName()
     {
         return self::$defaultActionName;
     }
 
 
+    /**
+     * Get controller path
+     * @return array
+     */
     public static function getcontrollerPaths()
     {
         return self::$controllerPaths;
     }
 
 
+    /**
+     * Get controller view path
+     * @return array
+     */
     public static function getcontrollerViewPaths()
     {
         return self::$controllerViewPaths;
     }
 
 
+    /**
+     * Get layout view path
+     * @return array
+     */
     public static function getlayoutViewPaths()
     {
         return self::$layoutViewPaths;
     }
 
 
+    /**
+     * Get element view path
+     * @return array
+     */
     public static function getelementViewPaths()
     {
         return self::$elementViewPaths;
     }
 
 
+    /**
+     * Get controller suffix
+     * @return string
+     */
     public static function getcontrollerSuffix()
     {
         return self::$controllerSuffix;
     }
 
 
+    /**
+     * Get controller view suffix
+     * @return string
+     */
     public static function getcontrollerViewSuffix()
     {
         return self::$controllerViewSuffix;
     }
 
 
+    /**
+     * Get layout view suffix
+     * @return string
+     */
     public static function getlayoutViewSuffix()
     {
         return self::$layoutViewSuffix;
     }
 
 
+    /**
+     * Get element view suffix
+     * @return string
+     */
     public static function getelementViewSuffix()
     {
         return self::$elementViewSuffix;
     }
 
 
-    /* Retrieval Methods */
-
+    /**
+     * Get controller
+     * @param string $controllerName
+     * @param string $controllerSubPath
+     * @return null|PageController
+     */
     public static function getController($controllerName, $controllerSubPath = "")
     {
         foreach (self::$controllerPaths as $path) {
@@ -303,30 +434,58 @@ class LvcConfig
     }
 
 
+    /**
+     * Get controller class name
+     * @param string $controllerName
+     * @return string
+     */
     public static function getControllerClassName($controllerName)
     {
         return str_replace(' ', '', ucwords(str_replace(array('_', '/'), ' ', $controllerName))) . 'Controller';
     }
 
 
+    /**
+     * Get action function name
+     * @param string $actionName
+     * @return string
+     */
     public static function getActionFunctionName($actionName)
     {
         return 'action' . str_replace(' ', '', ucwords(str_replace('_', ' ', $actionName)));
     }
 
 
+    /**
+     * Get controller view
+     * @param string $viewName
+     * @param array $data
+     * @return null|LvcView
+     */
     public static function getControllerView($viewName, &$data = array())
     {
         return self::getView($viewName, $data, self::$controllerViewPaths, self::$controllerViewSuffix);
     }
 
 
+    /**
+     * Get element view
+     * @param $elementName
+     * @param array $data
+     * @return null|LvcView
+     */
     public static function getElementView($elementName, &$data = array())
     {
         return self::getView($elementName, $data, self::$elementViewPaths, self::$elementViewSuffix);
     }
 
 
+    /**
+     * Get layout view
+     * @param string $layoutName
+     * @param array $data
+     * @return null|LvcView
+     */
     public static function getLayoutView($layoutName, &$data = array())
     {
         return self::getView($layoutName, $data, self::$layoutViewPaths, self::$layoutViewSuffix);
@@ -334,6 +493,12 @@ class LvcConfig
 
 
     /**
+     * @param $viewName
+     * @param array $data
+     * @param array $paths
+     * @param string $suffix
+     * @return null|LvcView
+     *
      * As an Lvc developer, you'll probably want to use `getControllerView`,
      * `getElementView`, or `getLayoutView`.
      *
@@ -347,7 +512,7 @@ class LvcConfig
      *
      * @var mixed Lvc_View object if one is found, otherwise null.
      * @see getControllerView(), getElementView(), getLayoutView(), Lvc_Config::setViewClassName()
-     * */
+     */
     public static function getView($viewName, &$data = array(), &$paths = array(''), $suffix = '')
     {
         foreach ($paths as $path) {
@@ -361,8 +526,7 @@ class LvcConfig
 
 
     /**
-     * Debugging method
-     *
+     * Dump config variable
      */
     public static function dump()
     {
