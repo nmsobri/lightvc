@@ -17,10 +17,10 @@ include( BASE_PATH . 'configs/routes.php' );
 include(BASE_PATH . 'classes/class.LightVc.php');
 include( BASE_PATH . 'classes/class.Autoloader.php' );
 
-LvcConfig::addControllerPath( BASE_PATH . 'controllers/' );
-LvcConfig::addControllerViewPath( BASE_PATH . 'views/' );
-LvcConfig::addLayoutViewPath( BASE_PATH . 'views/layouts/' );
-LvcConfig::addElementViewPath( BASE_PATH . 'views/elements/' );
+LvcConfig::setControllerPath( BASE_PATH . 'controllers/' );
+LvcConfig::setControllerViewPath( BASE_PATH . 'views/' );
+LvcConfig::setLayoutViewPath( BASE_PATH . 'views/layouts/' );
+LvcConfig::setElementViewPath( BASE_PATH . 'views/elements/' );
 LvcConfig::setViewClassName( 'AppView' );
 
 
