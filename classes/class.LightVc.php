@@ -39,7 +39,6 @@
  * Configuration class for the LVC suite of classes.
  * @package lightvc
  * @author Anthony Bush
- * @since 2007-04-20
  **/
 class LvcConfig
 {
@@ -171,7 +170,6 @@ class LvcConfig
      * @var string
      * */
     protected static $defaultActionName = 'index';
-
 
 
     ###########################################################################
@@ -520,7 +518,7 @@ class LvcConfig
      * @return null|PageController
      */
     public static function getController( $controllerName,
-        $controllerSubPath = ''
+        $controllerSubPath = null
     )
     {
         foreach( self::$controllerPaths as $controllerPath )
@@ -615,7 +613,7 @@ class LvcConfig
     /**
      * Get view
      *
-     * @param $viewName
+     * @param string $viewName
      * @param array $data
      * @param array $paths
      * @param string $suffix
@@ -637,7 +635,7 @@ class LvcConfig
      *     getView('file', $data, array('/full/path/to/file/'), '.php');
      */
     public static function getView( $viewName, &$data = array(),
-        &$paths = array(), $suffix = ''
+        &$paths = array(), $suffix = null
     )
     {
         foreach( $paths as $path )
@@ -692,112 +690,208 @@ class LvcConfig
  * what parameters to run them with.
  * @package lightvc
  * @author Anthony Bush
- * @since 2007-04-20
- * */
+ **/
 class LvcRequest
 {
 
+    /**
+     * Controller instance
+     *
+     * @var LvcPageController
+     */
     protected $controller = null;
 
 
-    protected $controllerName = '';
+    /**
+     * Controller name
+     *
+     * @var string
+     */
+    protected $controllerName = null;
 
 
-    protected $controllerSubPath = '';
+    /**
+     * Controller sub path
+     *
+     * @var string
+     */
+    protected $controllerSubPath = null;
 
 
+    /**
+     * Controller params( GET, POST )
+     *
+     * @var array
+     */
     protected $controllerParams = array();
 
 
-    protected $actionName = '';
+    /**
+     * Action name
+     *
+     * @var string
+     */
+    protected $actionName = null;
 
 
+    /**
+     *Action params
+     *
+     * @var array
+     */
     protected $actionParams = array();
 
 
-    public function getController()
-    {
-        return $this->controller;
-    }
-
-
-    public function getControllerName()
-    {
-        return $this->controllerName;
-    }
-
-
-    public function getControllerSubPath()
-    {
-        return $this->controllerSubPath;
-    }
-
-
-    public function &getControllerParams()
-    {
-        return $this->controllerParams;
-    }
-
-
-    public function getActionName()
-    {
-        return $this->actionName;
-    }
-
-
-    public function &getActionParams()
-    {
-        return $this->actionParams;
-    }
-
-
+    ###########################################################################
+    ##############################Setter Method################################
+    ###########################################################################
+    /**
+     * Set controller instance
+     *
+     * @param $controller
+     */
     public function setController( $controller )
     {
         $this->controller = $controller;
     }
 
 
+    /**
+     * Set controller name
+     *
+     * @param $controllerName
+     */
     public function setControllerName( $controllerName )
     {
         $this->controllerName = trim( $controllerName );
     }
 
 
+    /**
+     * Set controller sub path
+     *
+     * @param $controllerSubPath
+     */
     public function setControllerSubPath( $controllerSubPath )
     {
         $this->controllerSubPath = trim( $controllerSubPath );
     }
 
 
+
+    /**
+     * Set controller params
+     *
+     * @param $controllerParams
+     */
     public function setControllerParams( &$controllerParams )
     {
         $this->controllerParams = $controllerParams;
     }
 
 
+    /**
+     * Set action name
+     *
+     * @param $actionName
+     */
     public function setActionName( $actionName )
     {
         $this->actionName = trim( $actionName );
     }
 
 
+    /**
+     * Set action params
+     *
+     * @param $actionParams
+     */
     public function setActionParams( $actionParams )
     {
         $this->actionParams = $actionParams;
     }
 
 
+    ###########################################################################
+    ##############################Getter Method################################
+    ###########################################################################
     /**
-     * Override this in sub request objects to have custom error messages appended to
-     * LightVC messages.  For example, when HTTP Requests error, it might be useful
-     * to put the requested URL in the error log with the "Unable to load controller"
-     * message.
+     * Get controller instance
+     *
+     * @return null|LvcPageController
+     */
+    public function getController()
+    {
+        return $this->controller;
+    }
+
+
+    /**
+     * Get controller name
+     *
      * @return string
-     * @since 2008-03-14
-     * */
+     */
+    public function getControllerName()
+    {
+        return $this->controllerName;
+    }
+
+
+    /**
+     * Get controller sub path
+     *
+     * @return string
+     */
+    public function getControllerSubPath()
+    {
+        return $this->controllerSubPath;
+    }
+
+
+    /**
+     * Get controller params
+     *
+     * @return array
+     */
+    public function &getControllerParams()
+    {
+        return $this->controllerParams;
+    }
+
+
+    /**
+     * Get action name
+     *
+     * @return string
+     */
+    public function getActionName()
+    {
+        return $this->actionName;
+    }
+
+
+    /**
+     * Get action params
+     *
+     * @return array
+     */
+    public function &getActionParams()
+    {
+        return $this->actionParams;
+    }
+
+
+    /**
+     * Override this in sub request objects to have custom error messages
+     * appended to LightVC messages.For example, when HTTP Requests error,
+     * it might be useful to put the requested URL in the error log with the
+     * "Unable to load controller" message.
+     *
+     * @return string
+     */
     public function getAdditionalErrorInfo()
     {
-        return '';
+        return null;
     }
 
 
@@ -810,11 +904,15 @@ class LvcRequest
  * DELETE arena.
  * @package lightvc
  * @author Anthony Bush
- * @since 2007-04-20
  * */
 class LvcHttpRequest extends LvcRequest
 {
 
+    /**
+     * Hold URL, GET, POST data
+     *
+     * @var array
+     */
     protected $params = array();
 
 
@@ -822,56 +920,23 @@ class LvcHttpRequest extends LvcRequest
     {
         $params = array();
 
-        /* Ensure that we have a REQUEST_URI. */
-        if( isset( $_SERVER['REQUEST_URI'] ) )
-        {
-            $params['uri'] = $_SERVER['REQUEST_URI'];
+        $params['uri'] = $this->getRequestUri();
+        $params['get'] = &$_GET;
+        $params['post'] = &$_POST;
 
-            /* fixed subdomain wont load appropriate controller */
-            $base_dir = trim( APP_PATH, '/' );
-
-            if( $base_dir != '' ) //its mean this installation is in subfolder
-            {
-                $uri =
-                    preg_replace( "#/$base_dir(/.+)#", '\1', $params['uri'] );
-
-                if( trim( $uri, '/' ) == $base_dir )
-                {
-                    $params['uri'] = '';
-                }else
-                {
-                    $params['uri'] = trim( $uri, '/' );
-                }
-            }else
-            {
-                $params['uri'] = trim( $params['uri'], '/' );
-            }
-        }else
-        {
-            $params['uri'] = '';
-        }
-
-
-        /* Save GET data */
-        $params['get'] = & $_GET;
-
-        /* Save POST data */
-        $params['post'] = & $_POST;
-
-        /* Set params that will be used by routers. */
+        #Set params that will be used by routers
         $this->setRequestParams( $params );
 
-        /* An HTTP request will default to passing all the parameters to the controller. */
+        #Make Http request data available to controller
         $this->setControllerParams( $params );
     }
 
 
-    public function &getParams()
-    {
-        return $this->params;
-    }
-
-
+    /**
+     * Set http request data
+     *
+     * @param $params
+     */
     public function setRequestParams( &$params )
     {
         $this->params = $params;
@@ -879,17 +944,54 @@ class LvcHttpRequest extends LvcRequest
 
 
     /**
-     * Provides additional error information that might be useful when debugging
-     * errors.
+     * Get http request data
+     *
+     * @return array
+     */
+    public function &getRequestParams()
+    {
+        return $this->params;
+    }
+
+
+    /**
+     * Get request uri
+     *
+     * @return null|string
+     */
+    public function getRequestUri()
+    {
+        if( !isset( $_SERVER['REQUEST_URI'] ) ) return null;
+
+        $requestUri = $_SERVER['REQUEST_URI'];
+
+        $base_dir = trim( APP_PATH, '/' );
+
+        if( $base_dir != '' ) #subfolder
+        {
+            $uri = preg_replace( "#/$base_dir(/.+)#", '\1', $requestUri );
+            $uri = trim( $uri, '/');
+            return ( $uri  == $base_dir ) ? null : $uri;
+        }
+
+        return $requestUri = trim( $requestUri, '/' );
+    }
+
+
+    /**
+     * Provides additional error information that might be useful when
+     * debugging errors.
+     *
      * @return string
-     * @since 2008-03-14
-     * */
+     **/
     public function getAdditionalErrorInfo()
     {
         if( isset( $_SERVER['REQUEST_URI'] ) )
         {
-            return nl2br( "\nRequest Url was {$_SERVER['REQUEST_URI']}" );
-        }else
+            $error = 'Request Url was '. $_SERVER['REQUEST_URI']. PHP_EOL;
+            return nl2br( $error );
+        }
+        else
         {
             return parent::getAdditionalErrorInfo();
         }
@@ -905,8 +1007,7 @@ class LvcHttpRequest extends LvcRequest
  * request object.
  * @package lightvc
  * @author Anthony Bush
- * @since 2007-04-22
- * */
+ **/
 interface LvcRouter
 {
 
@@ -914,11 +1015,10 @@ interface LvcRouter
      * Set the appropriate controller, action, and action parameters to use on
      * the request object and return true. If no appropriate controller info
      * can be found, return false.
+     *
      * @param mixed $request A request object to route.
      * @return boolean
-     * @author Anthony Bush
-     * @since 2007-04-22
-     * */
+     **/
     public function route( $request );
 }
 
@@ -929,37 +1029,29 @@ interface LvcRouter
  * You can change the default keys for controller and action detection using
  * {@link setControllerKey()} and {@link setActionKey()} respectively.
  * @package lightvc
- * @author Anthony Bush
- * @since 2007-04-22
  * */
 class LvcGetRouter implements LvcRouter
 {
 
+    /**
+     * Controller key name
+     *
+     * @var string
+     */
     protected $controllerKey = 'controller';
 
 
+    /**
+     * Action key name
+     *
+     * @var string
+     */
     protected $actionKey = 'action';
 
 
-    public function setControllerKey( $controllerKey )
-    {
-        $this->controllerKey = $controllerKey;
-    }
-
-
-    public function setActionKey( $actionKey )
-    {
-        $this->actionKey = $actionKey;
-    }
-
-
     /**
-     * Construct the router and set all routes at once. See {@link setRoutes()}
-     * for more info.
-     * @return void
-     * @author Anthony Bush
-     * @since 2007-05-10
-     * */
+     * Empty constructor
+     */
     public function __construct()
     {
 
@@ -967,52 +1059,75 @@ class LvcGetRouter implements LvcRouter
 
 
     /**
-     * Attempts to routes a request using only the GET data.
+     * Set controller key name
+     *
+     * @param string $controllerKey
+     */
+    public function setControllerKey( $controllerKey )
+    {
+        $this->controllerKey = $controllerKey;
+    }
+
+
+    /**
+     * Set action key name
+     *
+     * @param string $actionKey
+     */
+    public function setActionKey( $actionKey )
+    {
+        $this->actionKey = $actionKey;
+    }
+
+
+    /**
+     * Attempts to routes a request using the GET data.
+     *
      * @param LvcHttpRequest $request A request object to route.
      * @return boolean
-     * @author Anthony Bush
-     * @since 2007-04-22
-     * */
+     **/
     public function route( $request )
     {
-        $params = $request->getParams();
+        $params = $request->getRequestParams();
 
-        /* Use GET parameters to set controller, action, and action params */
-        if( isset( $params['get'][$this->controllerKey] ) )
+        if( !isset( $params['get'][$this->controllerKey] ) ) return false;
+
+        $actionName = isset( $params['get'][$this->actionKey] ) ?
+            $params['get'][$this->actionKey] :
+            LvcConfig::getDefaultActionName();
+
+        $request->setControllerName( $params['get'][$this->controllerKey] );
+        $request->setActionName( $actionName );
+        $request->setActionParams( $this->getUriSegment( $params ) );
+        return true;
+    }
+
+
+    /**
+     * Get uri segment excluding controller and action segment
+     *
+     * @param $params
+     * @return array
+     */
+    public function getUriSegment( $params )
+    {
+        $actionParams = array();
+
+        $parts = explode( '&', substr( $params['uri'], strpos(
+            $params['uri'], '?' ) + 1 )
+        );
+
+        foreach( $parts as $part )
         {
+            list( $segKey, $segVal ) = explode( '=', $part );
 
-            $request->setControllerName( $params['get'][$this->controllerKey] );
-
-            if( isset( $params['get'][$this->actionKey] ) )
+            if( $segKey != $this->controllerKey && $segKey != $this->actionKey )
             {
-                $request->setActionName( $params['get'][$this->actionKey] );
-            }else
-            {
-                $request->setActionName( LvcConfig::getDefaultActionName() );
+                $actionParams[$segKey] = $segVal;
             }
-
-
-            $parts = explode( '&', ltrim( $params['uri'], '?' ) );
-
-            $actionParams = array();
-
-            foreach( $parts as $part )
-            {
-                list( $seg_key, $seg_val ) = explode( '=', $part );
-
-                if( $seg_key != $this->controllerKey && $seg_key != $this->actionKey )
-                {
-                    $actionParams[$seg_key] = $seg_val;
-                }
-            }
-
-            $request->setActionParams( $actionParams );
-
-            return true;
-        }else
-        {
-            return false;
         }
+
+        return $actionParams;
     }
 
 
@@ -1046,7 +1161,7 @@ class LvcRewriteRouter implements LvcRouter
      * */
     public function route( $request )
     {
-        $params = $request->getParams();
+        $params = $request->getRequestParams();
 
         if( isset( $params['uri'] ) )
         {
@@ -1179,7 +1294,7 @@ class LvcRegexRewriteRouter implements LvcRouter
     public function route( $request )
     {
 
-        $params = $request->getParams();
+        $params = $request->getRequestParams();
 
         if( isset( $params['uri'] ) )
         {
@@ -1355,9 +1470,7 @@ class LvcFrontController
         /* Give routers a chance to (re)-route the request. */
         foreach( $this->routers as $router )
         {
-            if( $router->route( $request
-            )
-            ) //if succes, this router will set appropriate controler, action and params
+            if( $router->route( $request)) //if succes, this router will set appropriate controler, action and params
             {
                 break;
             }
@@ -2430,8 +2543,11 @@ class LvcException extends Exception
             $request = new LvcRequest();
             $request->setControllerName( 'error' );
             $request->setActionName( 'view' );
-            $controller =
-                LvcConfig::getController( $request->getControllerName() );
+
+            $controller = LvcConfig::getController(
+                $request->getControllerName()
+            );
+
             $request->setController( $controller );
             $error_msg = DEVELOPMENT ? ( $this->getMessage(
                 ) . $r->getAdditionalErrorInfo() ) : null;
