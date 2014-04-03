@@ -11,7 +11,7 @@ $this->setLayoutVar('pageTitle', 'LightVC Skeleton App');
 <p>Routes (specified in <span class="path">configs/routes.php</span>) are sets up  out of the box:</p>
 
 <ul>
-	<li>"/" activate controller <b>Page Controller</b> and  action <b>ActionView</b> with "home" for the page_name parameter.</li>
+	<li>"/" activate controller <b>Page Controller</b> and  action <b>ActionView</b> with "home" for the pageName parameter.</li>
 	<li>"/page/about" activate controller <b>Page controller</b> and action <b>ActionView</b> with "about" for the pageName parameter.</li>
 	<li>"/user/edit/22" activate controller <b>User controller</b>  and action <b>ActionEdit</b> with the remaining URL used to populate the action method's arguments.</li>
 </ul>
@@ -32,7 +32,7 @@ $this->setLayoutVar('pageTitle', 'LightVC Skeleton App');
 	</li>
 	<li>Add to your application level config in <span class="path">configs/application.php</span>.</li>
 	<li>Add to your route config in <span class="path">configs/routes.php</span>.</li>
-	<li>Add your own model/ORM (e.g. <a href="http://coughphp.com">CoughPHP</a>, <a href="http://propel.phpdb.org/trac/">Propel</a>, <a href="http://en.wikipedia.org/wiki/List_of_object-relational_mapping_software#PHP">etc.</a>).</li>
+	<li>Add your own model/ORM (e.g. <a href="http://coughphp.anthonybush.com/">CoughPHP</a>, <a href="http://propel.phpdb.org/trac/">Propel</a>, <a href="http://en.wikipedia.org/wiki/List_of_object-relational_mapping_software#PHP">etc.</a>).</li>
 </ul>
 
 <p>Have Fun!<br /><a href="http://lightvc.org/">LightVC Website</a></p>

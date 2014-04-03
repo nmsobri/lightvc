@@ -4,17 +4,16 @@
 error_reporting( E_ALL ^ E_NOTICE );
 
 /* Derived Constants */
-define( 'BASE_PATH', dirname( dirname( __FILE__ ) ) . '/' ); //absolute path to root folder
-define( 'APP_PATH', str_replace( 'index.php', '', $_SERVER['SCRIPT_NAME'] ) ); //relative path from root folder
+define( 'BASE_PATH', dirname( dirname( __FILE__ ) ) . '/' );
+define( 'APP_PATH', str_replace( 'index.php', '', $_SERVER['SCRIPT_NAME'] ) );
 define( 'CSS_PATH', APP_PATH . 'assets/css/' );
 define( 'JS_PATH', APP_PATH . 'assets/js/' );
 define( 'IMG_PATH', APP_PATH . 'assets/img/' );
 define( 'DEVELOPMENT', true );
 
-/* Include and configure the LighVC framework (http://lightvc.org/) */
-
+#Include and configure the framework
 include( BASE_PATH . 'configs/routes.php' );
-include(BASE_PATH . 'classes/class.LightVc.php');
+include( BASE_PATH . 'classes/class.LightVc.php');
 include( BASE_PATH . 'classes/class.Autoloader.php' );
 
 LvcConfig::setControllerPath( BASE_PATH . 'controllers/' );
@@ -24,7 +23,7 @@ LvcConfig::setElementViewPath( BASE_PATH . 'views/elements/' );
 LvcConfig::setViewClassName( 'AppView' );
 
 
-/* Enable the optional Autoloader and/or SimpleReflector helpers by uncommenting the following: */
+#Enable the optional Autoloader and/or SimpleReflector helpers by uncommenting the following:
 Autoloader::setClassFilePrefix( 'class.' );
 Autoloader::setClassFileSuffix( '.php' );
 Autoloader::setCacheFilePath( null );

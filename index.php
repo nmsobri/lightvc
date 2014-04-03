@@ -1,6 +1,6 @@
 <?php
 
-/* Load core application config */
+#Load core application config
 include( 'configs/application.php' );
 
 
@@ -29,4 +29,3 @@ include( 'configs/application.php' );
 
 $dispatcher = new LvcDispatcher( new LvcRegexRewriteRouter( $regex_routes ) );
 $dispatcher->go();
-?>
