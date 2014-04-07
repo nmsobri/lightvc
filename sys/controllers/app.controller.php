@@ -40,7 +40,7 @@ class AppController extends LvcPageController
 
     public function sendHttpStatusHeader( $code )
     {
-        include_once( 'class.HttpStatusCode.php' );
+        include_once( 'http.status.code.php' );
         $statusCode = new HttpStatusCode( $code );
         header( 'HTTP 1.1 ' . $statusCode->getCode() . ' ' . $statusCode->getDefinition() );
         return $statusCode;

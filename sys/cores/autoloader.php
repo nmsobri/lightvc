@@ -5,12 +5,12 @@
  *
  * @example
  * [code]
- * include_once('class.Autoloader.php');
+ * include_once('autoloader.php');
  * Autoloader::addClassPath('app_path/classes/');
  * Autoloader::addClassPath('shared_path/classes/');
  * Autoloader::setCacheFilePath('app_path/tmp/class_path_cache.txt');
  * Autoloader::excludeFolderNamesMatchingRegex('/^CVS|\..*$/');
- * spl_autoload_register(array('Autoloader', 'loadClass'));
+ * Autoloader::registerAutoload();
  * [code]
  *
  * @package default
@@ -21,12 +21,51 @@
 class Autoloader
 {
 
+    /**
+     * Location of class to search
+     * @var array
+     */
     protected static $classPaths = array( );
-    protected static $classFilePrefix = 'class.';
+
+
+    /**
+     * Class prefix
+     * @var string
+     */
+    protected static $classFilePrefix = '';
+
+
+    /**
+     * Class suffix
+     * @var string
+     */
     protected static $classFileSuffix = '.php';
-    protected static $cacheFilePath = null;
-    protected static $cachedPaths = null;
-    protected static $excludeFolderNames = '/^CVS|\..*$/'; // CVS directories and directories starting with a dot (.).
+
+
+    /**
+     * Cache file
+     * @var null
+     */
+    protected static $cacheFile = null;
+
+
+    /**
+     * Cache content
+     * @var null
+     */
+    protected static $cacheContent = null;
+
+
+    /**
+     * Exclude folder to search
+     * @var string
+     */
+    protected static $excludeFolderNames = '#^CVS|\.{1,2}$#';
+
+
+    /**
+     * @var bool
+     */
     protected static $hasSaver = false;
 
 
@@ -69,15 +108,16 @@ class Autoloader
      * @param string $path
      * @return void
      * */
-    public static function setCacheFilePath( $path )
+    public static function setCacheFile( $path )
     {
-        self::$cacheFilePath = $path;
+        self::$cacheFile = $path;
     }
 
 
 
     /**
-     * Sets the prefix to prepend to a class name in order to get a file name to look for
+     * Sets the prefix to prepend to a class name in order to get a file
+     * name to look for
      *
      * @param string $prefix
      * @return void
@@ -90,7 +130,8 @@ class Autoloader
 
 
     /**
-     * Sets the suffix to append to a class name in order to get a file name to look for
+     * Sets the suffix to append to a class name in order to get a
+     * file name to look for
      *
      * @param string $suffix
      * @return void
@@ -109,7 +150,7 @@ class Autoloader
      * Example:
      *
      *     <code>
-     *     Autoloader::excludeFolderNamesMatchingRegex('/^CVS|\..*$/');
+     *     Autoloader::excludeFolderNamesMatchingRegex('/^CVS|\.{1,2}$/');
      *     </code>
      *
      * @param string $regex
@@ -121,36 +162,43 @@ class Autoloader
     }
 
 
+    /**
+     * Register autoload
+     */
+    public static function registerAutoload()
+    {
+        spl_autoload_register( array( __CLASS__, 'loadClass' ) );
+    }
+
+
 
     /**
      * Returns true if the class file was found and included, false if not.
-     *
-     * @return boolean
-     * */
+     * @param string $className
+     * @return bool
+     */
     public static function loadClass( $className )
     {
+        $cacheFile = self::getCachedContent( $className );
 
-        $filePath = self::getCachedPath( $className );
-        if ( $filePath && file_exists( $filePath ) )
+        if ( $cacheFile && file_exists( $cacheFile ) )
         {
-            /* Cached location is correct */
-            include($filePath);
+            include( $cacheFile );
             return true;
         }
         else
         {
-            /* Scan for file */
             foreach ( self::$classPaths as $path )
             {
-                if ( $filePath = self::searchForClassFile( $className, $path ) )
+                if ( $classFile = self::searchForClassFile( $className, $path ) )
                 {
-                    self::$cachedPaths[ $className ] = $filePath;
-                    if ( !self::$hasSaver && (!is_null( self::$cacheFilePath )) )
+                    self::$cacheContent[ $className ] = $classFile;
+                    if ( !self::$hasSaver && ( !is_null( self::$cacheFile ) ) )
                     {
-                        register_shutdown_function( array( 'Autoloader', 'saveCachedPaths' ) );
+                        register_shutdown_function( array( __CLASS__, 'saveCachedContent' ) );
                         self::$hasSaver = true;
                     }
-                    include($filePath);
+                    include( $classFile );
                     return true;
                 }
             }
@@ -159,29 +207,37 @@ class Autoloader
     }
 
 
-
-    protected static function getCachedPath( $className )
+    /**
+     * Get cache file
+     *
+     * @param $className
+     * @return bool
+     */
+    protected static function getCachedContent( $className )
     {
-        self::loadCachedPaths();
-        if ( isset( self::$cachedPaths[ $className ] ) )
+        self::loadCachedFile();
+
+        if ( isset( self::$cacheContent[ $className ] ) )
         {
-            return self::$cachedPaths[ $className ];
+            return self::$cacheContent[ $className ];
         }
-        else
-        {
-            return false;
-        }
+
+        return false;
     }
 
 
-
-    protected static function loadCachedPaths()
+    /**
+     * Load cache file
+     *
+     * @return void
+     */
+    protected static function loadCachedFile()
     {
-        if ( is_null( self::$cachedPaths ) )
+        if ( is_null( self::$cacheContent ) )
         {
-            if ( self::$cacheFilePath && is_file( self::$cacheFilePath ) )
+            if ( self::$cacheFile && is_file( self::$cacheFile ) )
             {
-                self::$cachedPaths = unserialize( file_get_contents( self::$cacheFilePath ) );
+                self::$cacheContent = unserialize( file_get_contents( self::$cacheFile ) );
             }
         }
     }
@@ -189,29 +245,35 @@ class Autoloader
 
 
     /**
-     * Write cached paths to disk.
+     * Write cached paths to file
      *
      * @return void
      * */
-    public static function saveCachedPaths()
+    public static function saveCachedContent()
     {
-        if ( !file_exists( self::$cacheFilePath ) || is_writable( self::$cacheFilePath ) )
+        if ( !file_exists( self::$cacheFile ) || is_writable( self::$cacheFile ) )
         {
-            $fileContents = serialize( self::$cachedPaths );
-            $bytes = file_put_contents( self::$cacheFilePath, $fileContents );
+            $fileContents = serialize( self::$cacheContent );
+            $bytes = file_put_contents( self::$cacheFile, $fileContents );
             if ( $bytes === false )
             {
-                trigger_error( 'Autoloader could not write the cache file: ' . self::$cacheFilePath, E_USER_ERROR );
+                trigger_error( 'Autoloader could not write the cache file: ' . self::$cacheFile, E_USER_ERROR );
             }
         }
         else
         {
-            trigger_error( 'Autoload cache file not writable: ' . self::$cacheFilePath, E_USER_ERROR );
+            trigger_error( 'Autoload cache file not writable: ' . self::$cacheFile, E_USER_ERROR );
         }
     }
 
 
-
+    /**
+     * Serach for class file
+     *
+     * @param $className
+     * @param $directory
+     * @return bool|string
+     */
     protected static function searchForClassFile( $className, $directory )
     {
         if ( is_dir( $directory ) && is_readable( $directory ) )
@@ -220,7 +282,7 @@ class Autoloader
             while ( $file = $d->read() )
             {
                 $subPath = $directory . $file;
-                if ( is_dir( $subPath ) ) /* Found a subdirectory */
+                if ( is_dir( $subPath ) )
                 {
                     if ( !preg_match( self::$excludeFolderNames, $file ) )
                     {
@@ -232,8 +294,7 @@ class Autoloader
                 }
                 else
                 {
-                    /* Not a subdirectory */
-                    if ( $file == trim( self::$classFilePrefix . $className . self::$classFileSuffix ) )
+                    if ( $file == trim( self::$classFilePrefix . self::camelToDot( $className ) . self::$classFileSuffix ) )
                     {
                         return $subPath;
                     }
@@ -244,10 +305,21 @@ class Autoloader
     }
 
 
+    /**
+     * Covert camel case class name to dot(.)
+     *
+     * @param $class
+     * @return string
+     */
+    protected static function camelToDot( $class )
+    {
+        return strtolower( preg_replace( '/([a-zA-Z])(?=[A-Z])/', '$1.', $class ) );
+    }
+
+
 
 }
 
 
 
 
-?>

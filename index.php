@@ -1,7 +1,7 @@
 <?php
 
 #Load core application config
-include( 'configs/application.php' );
+include( './app/configs/application.php' );
 
 
 /**
